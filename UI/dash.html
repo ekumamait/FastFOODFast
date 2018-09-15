@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="food, online, delivery">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <title>FastFOODFast | Make Your Order</title>
+    <link rel="stylesheet" type="text/css" href="css/dash.css">
+    <link rel="stylesheet" type="text/css" href="css/kent.css">
+</head>
+<body>
+    <header class="head">
+        <div class="header">
+            <!-- Navigation bar-->
+            <img id="logo" src="img/3fs.JPG" width="8%" />
+            <a class="button" href="#popup1">See Menu & Order</a>
+            <img height="40px" id="user_icon" width="auto" src="img/if_user_925901.png"> 
+        </div>    
+    </header>
+
+        <div class="menu_section">
+
+            <!-- order modal -->
+            <div id="popup1" class="overlay">
+                <div class="popup">
+                    <h2>Place Your Order</h2>
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        <div class="form-area-section">
+                            <form method="post" action="history.html">
+                                <div>
+                                    <select name="order-list" id="#" class="form-control" placeholder="Select Your meal here">
+                                        <option value="burgers">El Chapo</option>
+                                        <option value="burgers">Double El Chapo</option>
+                                        <option value="wraps">SilverBack Wrap</option>
+                                        <option value="chicken">2pc Kungpao</option>
+                                        <option value="rice">Chicken Biryani</option>
+                                        <option value="snack packs">Halal Snack pack</option>
+                                </div>
+                                <div>
+                                    <input type="location" name="location" id="location" class="form-control" placeholder="Enter location">
+                                </div>
+                                <div>
+                                    <input type="number" name="location" id="number-of-piece" class="form-control" placeholder="Number of orders">
+                                </div>
+                                <div>
+                                    <input type="radio" id="self-delivery" name="self-delivery" value="self-delivery">
+                                    <label for="self-delivery">pickup</label>
+                                    <input type="radio" id="delivered" name="delivered" value="delivered">
+                                    <label for="delivered">delivery</label>
+                                </div>
+                                <div>
+                                    <input type="submit" name="submit"  value="buy" id="submit" class="button-sunshine-outline-order">
+                                </div>
+                            </form>    
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+
+<!-- menu items displaying images -->
+
+            <div style="cursor:pointer;" class="menu_item">
+                <div class="snack-data">
+                    <small>STREET BURGERS</small>
+                </div>
+                <h2 class="snack-title">El Chapo</h2>
+                <img src="img/burger.jpg" >
+                <p class="snack-content">Slow Grilled beef patty with a slice of cheddar cheese,
+                    caramelised onions, tomatoes, ketchup and mayo</p>
+            </div>
+            <div style="cursor:pointer;" class="menu_item">
+                <div class="snack-data">
+                    <small>STREET BURGERS</small>
+                </div>
+                <h2 class="snack-title">Double El Chapo</h2>
+                <img src="img/double.PNG">
+                <p class="snack-content">2 Slow Grilled beef patty with double slice of cheddar cheese,
+                    caramelised onions, tomatoes, ketchup and mayo</p>
+            </div>
+            <div style="cursor:pointer;" class="menu_item">
+                <div class="snack-data">
+                    <small>WRAPS</small>
+                </div>
+                <h2 class="snack-title">SilverBack Wrap</h2>
+                <img src="img/silver.JPG">
+                <p class="snack-content">Shredded chicken marinated in a fusion 
+                    of spices topped with a hand full of fries, 
+                        guacomole, ketchup and mayonnaise wrapped in a tortilla wrap</p>
+            </div>
+            <div style="cursor:pointer;" class="menu_item">
+                <div class="snack-data">
+                    <small>KUNGPAO CHICKEN</small>
+                </div>
+                <h2 class="snack-title">2pc Kungpao</h2>
+                <img src="img/kungpao.JPG">
+                <p class="snack-content">2pc deep fried kungpao chicken with 
+                    a filling pack of fries and free drink</p>
+            </div>
+            <div style="cursor:pointer;" class="menu_item">
+                <div class="snack-data">
+                    <small>RICE</small>
+                </div>
+                <h2 class="snack-title">Chicken Biryani</h2>
+                <img src="img/ricebiryani.JPG">
+                <p class="snack-content">Bombay style chicken biryani served with a side of kachumbari 
+                    and a free soft drink</p>
+            </div>
+            <div style="cursor:pointer;" class="menu_item">
+                <div class="snack-data">
+                    <small>SNACK PACKS</small>
+                </div>
+                <h2 class="snack-title">Halal Snack Pack</h2>
+                <img src="img/snack.JPG">
+                <p class="snack-content">Fries topped with biryani sauce, 
+                    shredded chicken and a spread of ketchup and mayo</p>
+            </div>
+        </div>
+</body>
+</html>
