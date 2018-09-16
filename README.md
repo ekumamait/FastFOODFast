@@ -1,4 +1,4 @@
-####### WELCOME TO FastFOODFast
+##### WELCOME TO FastFOODFast
 
 ------------
 
