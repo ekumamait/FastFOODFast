@@ -8,7 +8,7 @@
 
 - [x] **DESCRIPTION**
 - [x] **AVAILABLE PAGES**
-- [] **PENDING..**
+- [ ] **PENDING..**
 - [x] **PROJECT DEMO**
 - [x] **PROJECT MANAGER**
 - [x] **TECHNOLOGIES**
@@ -37,6 +37,8 @@ The main focus of this build in its present is the User Interface of the applica
 ##### PENDING..;
 
 - Responsiveness
+
+------------
 
 ##### PROJECT DEMO;
 
