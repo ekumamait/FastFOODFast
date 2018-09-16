@@ -38,6 +38,8 @@ The main focus of this build in its present is the User Interface of the applica
 
 - Responsiveness
 
+------------
+
 ##### PROJECT DEMO;
 
 - The pages are live on gh-pages
