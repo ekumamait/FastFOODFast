@@ -16,11 +16,18 @@
             <!-- Navigation bar-->
             <div id="navigation">
                 <img id="logo" src="img/3fs.JPG" width="8%" />
-                <img height="40px" id="user_icon" width="auto" src="img/if_user_925901.png">
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <img height="40px" id="user_icon" width="auto" src="img/if_user_925901.png" action="history.html">
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="index.html">Log Out</a>
+                    </div>
+                </div>
             </div>  
         </div>
     </header> 
-        
+        <!-- table displays orders and control actions for admin -->
 <table id="customers">
     <tr>
       <th>ORDER ID</th>
