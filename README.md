@@ -45,7 +45,7 @@ The main focus of this build in its present is the User Interface of the applica
 - The pages are live on gh-pages
 
 [Here is a link to the application demo]
-()
+(https://ekumamait.github.io/FastFOODFast/UI/index.html)
 
 ------------
 
