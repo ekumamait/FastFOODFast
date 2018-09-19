@@ -1,6 +1,8 @@
 
 ##### WELCOME TO FastFOODFast
 
+[![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg?branch=api)](https://coveralls.io/github/ekumamait/FastFOODFast?branch=api)
+
 ------------
 
 ##### TABLE OF CONTENT;
@@ -10,7 +12,7 @@
 - [x] **DESCRIPTION**
 - [x] **PROJECT SETUP**
 - [x] **AVAILABLE ROUTES**
-- [ ] **TESTS**
+- [x] **TESTS**
 - [ ] **PROJECT DEMO**
 
 ------------
@@ -44,19 +46,22 @@ This is an online food order and delivery service app for a restaurant where reg
 
 ###### AVAILABLE ROUTES;
 
-|  EndPoint   | Functionality |
-| ------------ | ------------ |
-| /api/v1/orders, methods=['GET'] | `Fetches all orders created`  |
-| /api/v1/orders/int:order_id, methods=['GET'] |  `Fetches a specific order by id` |
-| /api/v1/orders, methods=['POST'] | `add a new order`  |
-| /api/v1/orders/int:order_id', methods=['PUT'] | `edit a single order` |
+|  EndPoint   | Methods | Functionality |
+| ------------ |------------| ------------ |
+| /api/v1/orders | GET | `Fetches all orders created`  |
+| /api/v1/orders/int:order_id | GET | `Fetches a specific order by id` |
+| /api/v1/orders | POST | `add a new order`  |
+| /api/v1/orders/int:order_id'| PUT | `edit a single order` |
 
 ------------
 
 ###### :microscope: TESTS;
 
-- Pending....
+- [x] Tests for routes 
+- [ ] Tests for models
 
+- command to run tests:
+    ` nosetests -v `
 ------------
 
 ###### Project Demo;
