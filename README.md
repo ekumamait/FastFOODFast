@@ -1,7 +1,7 @@
 
 ##### WELCOME TO FastFOODFast
 
-[![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg?branch=api)](https://coveralls.io/github/ekumamait/FastFOODFast?branch=api)
+[![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg?branch=api)](https://coveralls.io/github/ekumamait/FastFOODFast?branch=api)[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=api)](https://travis-ci.org/ekumamait/FastFOODFast)
 
 ------------
 
