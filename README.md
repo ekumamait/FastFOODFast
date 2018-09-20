@@ -1,7 +1,9 @@
 
 ##### WELCOME TO FastFOODFast
 
-[![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg?branch=api)](https://coveralls.io/github/ekumamait/FastFOODFast?branch=api) [![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=api)](https://travis-ci.org/ekumamait/FastFOODFast)
+------------
+
+[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=api)](https://travis-ci.org/ekumamait/FastFOODFast) [![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg?branch=api)](https://coveralls.io/github/ekumamait/FastFOODFast?branch=api) 
 
 ------------
 
@@ -62,6 +64,9 @@ This is an online food order and delivery service app for a restaurant where reg
 
 - command to run tests:
     ` nosetests -v `
+
+- command to run tests with coverage:
+    ` nosetests -v --with-coverage `    
 ------------
 
 ###### Project Demo;
