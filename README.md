@@ -15,7 +15,7 @@
 - [x] **PROJECT SETUP**
 - [x] **AVAILABLE ROUTES**
 - [x] **TESTS**
-- [ ] **PROJECT DEMO**
+- [x] **PROJECT DEMO**
 
 ------------
 
@@ -70,8 +70,8 @@ This is an online food order and delivery service app for a restaurant where reg
 
 ###### Project Demo;
 
-- Here is the link to the App Demo 
-`https://ekumamaits-fastfoodfast.herokuapp.com/`
+- Here is the link to the App Demo: 
+https://ekumamaits-fastfoodfast.herokuapp.com/
 
 ------------
 
