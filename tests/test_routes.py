@@ -1,7 +1,7 @@
 import unittest
 import json
-from api.routes import app
-from api.models import Orders
+from app.routes import app
+from app.models import Orders
 
 class My_TestClass(unittest.TestCase):
 

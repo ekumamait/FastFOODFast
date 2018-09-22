@@ -1,8 +1,8 @@
 """ This is the routes module which contains the application wide endpoints."""
 
 from flask import jsonify, request, abort, make_response  
-from api import app
-from api.models import Orders
+from app import app
+from app.models import Orders
 
 model = Orders()
 
