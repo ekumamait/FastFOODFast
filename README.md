@@ -21,7 +21,7 @@
 
 ###### :page_facing_up: DESCRIPTION;
 
-This is an online food order and delivery service app for a restaurant where registered customers can order daily meals from the famous menu and have the meals delivered to them at home or office. The main focus of this build in its present is the User Interface of the application.
+This is an online food order and delivery service app for a restaurant where registered customers can order daily meals from the famous menu and have the meals delivered to them at home or office. The main focus of this build in its present is the API using data structures for non persistant data storage.
 
 ------------
 

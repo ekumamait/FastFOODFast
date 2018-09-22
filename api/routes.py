@@ -9,27 +9,17 @@ model = Orders()
 @app.errorhandler(404) 
 def not_found(error):   
     """ Customised HTTP 404 Not found error """
-    return make_response(jsonify( { 'error': '  :(  Oops Nothing found  ' } ), 404)
+    return make_response(jsonify( { 'error': 'Nothing found' } ), 404)
 
 @app.errorhandler(405) 
 def not_allowed(error):   
     """ Customised HTTP 405 Method Not Allowed error """
-    return make_response(jsonify( { 'error': '  :(  Oops Your trying to use a wrong HTTP Method  ' } ), 405)
+    return make_response(jsonify( { 'error': 'You are trying to use a wrong HTTP Method' } ), 405)
 
 @app.errorhandler(400) 
 def bad_request(error):   
     """ Customised HTTP 400 Bad Request error """
-    return make_response(jsonify( { 'error': '  :(  BAD REQUEST  ' } ), 400)
-
-@app.errorhandler(401)
-def unauthorised(error):
-    """ Customised HTTP 401 unauthorised error """
-    return make_response(jsonify({'error':'You are not logged in! Please first login'}),401)
-
-@app.errorhandler(500)
-def internal_server_error(error):
-    """ Customised HTTP 500 internal server error """
-    return make_response(jsonify({'failed':'The server run into an error'}),500)
+    return make_response(jsonify( { 'error': 'incomplete order' } ), 400)
 
 @app.route('/')
 def index():
@@ -43,7 +33,7 @@ def all_orders():
 
 	customers = model.get_all_orders()
 
-	return jsonify({'All Orders': customers})
+	return make_response(jsonify({'All Orders': customers}), 200)
 
 @app.route('/api/v1/orders/<int:order_id>', methods = ['GET'] )
 def single_order(order_id):
@@ -51,9 +41,9 @@ def single_order(order_id):
 	if request.method != "GET":
 		abort(405)
 
-	order = model.get_single_order(order_id)
+	order = model.get_specific_order(order_id)
 
-	return jsonify({'msg': order})
+	return make_response(jsonify({'msg': order}), 200)
 
 @app.route('/api/v1/orders', methods = ['POST'] )
 def add_order():
@@ -63,8 +53,8 @@ def add_order():
 
 	new_order = request.get_json()
 	model.add_new_order(new_order['meal'], new_order['location'], new_order['quantity']) 
-
-	return jsonify({'msg': 'order placed'})
+	
+	return make_response(jsonify({'msg': 'order placed'}), 200)
 
 @app.route('/api/v1/orders/<int:order_id>', methods = ['PUT'] )
 def edit_order(order_id):
@@ -73,6 +63,6 @@ def edit_order(order_id):
 		abort(405)
 
 	edit_order = request.get_json()
-	model.edit_order(edit_order, order_id)
+	model.edit_specific_order(edit_order, order_id)
 
-	return jsonify({'msg' : 'Order status updated'}), 200
+	return make_response(jsonify({'msg' : 'Order updated'}), 200)
