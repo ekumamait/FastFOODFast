@@ -67,10 +67,6 @@ class My_TestClass(unittest.TestCase):
         resp = self.app.delete('/api/v1/orders/1')
         self.assertEqual(resp.status_code, 405)
         self.assertEqual(resp.content_type, 'application/json')         
-
-    @unittest.skip("WIP")
-    def test_unknown_method(self):
-        self.assertEqual(self.signup.some_method(), 1)           
-
+       
 if __name__ == '__main__':
     unittest.main()

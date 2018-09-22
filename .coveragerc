@@ -24,8 +24,8 @@ omit = venv/*
       */http/cookiejar.py      
       */mimetypes.py                      
       */stringprep.py
-      */api/__init__.py
-      */api/models.py
+      */app/__init__.py
+
 
 
 [html]
