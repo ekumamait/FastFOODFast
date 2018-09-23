@@ -8,10 +8,10 @@ install:
   - pip install coverage
   - pip install coveralls
   - pip install nose
-  
+
 # command to run tests
 script:
   - nosetests -v --with-coverage --cover-package=app
 
 after_success:
-- coveralls
+  - coveralls
