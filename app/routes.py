@@ -35,7 +35,7 @@ def index():
 
 
 @app.route('/api/v1/orders', methods=['GET'])
-def all_orders():
+def get_all_orders():
 	""" end point for getting all orders """
 	if request.method != "GET":
 		abort(405)
@@ -45,7 +45,7 @@ def all_orders():
 
 
 @app.route('/api/v1/orders/<int:order_id>', methods=['GET'])
-def single_order(order_id):
+def get_single_order(order_id):
 	""" end point for getting a single order """
 	if request.method != "GET":
 		abort(405)
@@ -55,7 +55,7 @@ def single_order(order_id):
 
 
 @app.route('/api/v1/orders', methods=['POST'])
-def add_order():
+def add_single_order():
 	""" end point for adding an order """
 	if request.method != "POST":
 		abort(405)
@@ -67,7 +67,7 @@ def add_order():
 
 
 @app.route('/api/v1/orders/<int:order_id>', methods=['PUT'])
-def edit_order(order_id):
+def edit_single_order(order_id):
 	""" end point for editting an order """
 	if request.method != "PUT":
 		abort(405)
