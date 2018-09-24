@@ -20,11 +20,9 @@ class Orders:
         """ This function places an order """
         self.order = {'meal': meal, 'location': location, 'quantity': quantity}
         """ function places an order """
-        if meal == '' or meal == ' ':
+        if meal == '' or location == '' or quantity == '': 
             return abort(400)
-        elif location == '' or location == ' ':
-            return abort(400)
-        elif quantity == '' or quantity == ' ':
+        elif meal == ' ' or location == ' ' or quantity == ' ':
             return abort(400)
         else:
             self.order['date'] = now
@@ -58,3 +56,4 @@ class Orders:
                     self.orders.remove(order)
                     edit_order['order_id'] = order_id
                     self.orders.append(edit_order)
+
