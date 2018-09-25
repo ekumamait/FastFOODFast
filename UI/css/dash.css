@@ -176,6 +176,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  border-radius: .3em;
 }
 
 .dropdown-content {

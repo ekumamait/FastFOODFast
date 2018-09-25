@@ -29,6 +29,7 @@ body{
     border-radius: 3px;
     margin: 10px;
     width:  300px;
+    cursor: pointer; 
 }
 .menu_item:hover{
     box-shadow: 0 5px 30px goldenrod;
