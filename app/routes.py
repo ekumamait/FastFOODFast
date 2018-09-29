@@ -49,7 +49,7 @@ def sign_up():
 
 @app.route('/api/v2/login', methods=['POST'])
 def login():
-	""" end point for logging in a signed up user """
+	""" end point for logging in a user """
 	user = request.json
 	
 	if not user['Username']:
@@ -63,6 +63,21 @@ def login():
 	return jsonify(access_token=access_token), 200
 
 
+@app.route('/api/v2/orders', methods=['POST'])
+@jwt_required
+def add_single_order():
+	""" end point for adding an order """
+	if request.method != "POST":
+		abort(405)
+
+	new_order = request.get_json()
+	user_id = get_jwt_identity()[0]
+	meal_id = db.search_menu(new_order['meal_name'])
+	db.place_new_order(new_order['location'], 
+	new_order['quantity'], user_id, meal_id[0])
+	return make_response(jsonify({'msg': 'order placed'}), 200)
+
+
 @app.route('/api/v2/orders', methods=['GET'])
 @jwt_required
 def get_my_orders():
@@ -73,6 +88,7 @@ def get_my_orders():
 	user_id = get_jwt_identity()[0]
 	customers = db.get_all_orders(user_id)
 	return make_response(jsonify({'All Orders': customers}), 200)
+
 
 @app.route('/api/orders', methods=['GET'])
 def all_orders():
@@ -90,25 +106,8 @@ def get_single_order(order_id):
 	if request.method != "GET":
 		abort(405)
 
-	user_id = get_jwt_identity()[0]
-
-	order = db.get_order_by_id(order_id, user_id)
+	order = db.get_order_by_id(order_id)
 	return make_response(jsonify({'msg': order}))
-
-
-@app.route('/api/v2/orders', methods=['POST'])
-@jwt_required
-def add_single_order():
-	""" end point for adding an order """
-	if request.method != "POST":
-		abort(405)
-
-	new_order = request.get_json()
-	user_id = get_jwt_identity()[0]
-	meal_id = db.search_menu(new_order['meal_name'])
-	db.place_new_order(new_order['location'], 
-	new_order['quantity'], user_id, meal_id[0])
-	return make_response(jsonify({'msg': 'order placed'}), 200)
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['PUT'])
