@@ -75,18 +75,16 @@ def get_my_orders():
 	return make_response(jsonify({'All Orders': customers}), 200)
 
 @app.route('/api/orders', methods=['GET'])
-@jwt_required
-def all_orders(user_id):
+def all_orders():
 	""" end point for getting all orders of a specific user """
 	if request.method != "GET":
 		abort(405)
-
-	customers = db.get_orders(user_id)
+	
+	customers = db.get_orders()
 	return make_response(jsonify({'All Orders': customers}), 200)    
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['GET'])
-@jwt_required
 def get_single_order(order_id):
 	""" end point for getting a single order """
 	if request.method != "GET":

@@ -128,12 +128,12 @@ class Orders():
         self.conn.commit()
         return True 
 
-    def get_orders(self, user_id):
+    def get_orders(self):
         """A function to get all orders"""
-        create = """SELECT * FROM Tickets WHERE user_id='{}'""".format(user_id)
+        create = """SELECT * FROM Orders;"""
         self.cur.execute(create)
-        tickets = self.cur.fetchall() 
-        return tickets
+        orders = self.cur.fetchall() 
+        return orders
 
     def search_user(self, user_name):
         """A function to search orders of a specific user"""
