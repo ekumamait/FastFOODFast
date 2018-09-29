@@ -4,12 +4,12 @@
 """
 
 from flask import jsonify, request, abort, make_response
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token,get_jwt_identity
 import datetime
 from app import app
 from app.models import Users, Orders, Menu
 
 db = Orders()
-customers = Users()
 meal = Menu()
 now = datetime.datetime.now()
 
@@ -30,65 +30,85 @@ def not_allowed(error):
 @app.errorhandler(400)
 def bad_request(error):
 	""" Custom HTTP 400 Bad Request error """
-	return make_response(jsonify({'error': 'incomplete order'}), 400)
+	return make_response(jsonify({'error': 'incomplete Request'}), 400)
 
 
 @app.route('/api/v2/sign_up', methods = ['POST'])
 def sign_up():
-    """ end point for signing up a user """
-    if request.method != "POST":
-        abort(405)
+	""" end point for signing up a user """
+	if request.method != "POST":
+		abort(405)
 
-    new_user = request.get_json()
-    customers.insert_new_user(new_user["user_name"], new_user["user_email"], 
-    new_user["user_password"], new_user["confirm_password"])
-    return jsonify({'msg': 'account created'}), 200
+	new_user = request.get_json()
+	customers = Users(new_user['user_name'], new_user['user_password'],new_user['user_email'])	
+
+	customers.insert_new_user(new_user["user_name"], new_user["user_email"], 
+	new_user["user_password"], new_user["confirm_password"])
+	return jsonify({'msg': 'account created'}), 200
 
 
-@app.route('/api/v2/login', methods = ['POST'])
+@app.route('/api/v2/login', methods=['POST'])
 def login():
-    """ end point for logging in a signed up user """
-    return jsonify({}), 200
+	""" end point for logging in a signed up user """
+	user = request.json
+	
+	if not user['Username']:
+		return jsonify({"msg": "Missing username parameter"}), 400
+	if not user['Password']:
+		return jsonify({"msg": "Missing password parameter"}), 400
+
+	userid = db.search_user(user['Username'])
+
+	access_token = create_access_token(identity=userid)
+	return jsonify(access_token=access_token), 200
 
 
 @app.route('/api/v2/orders', methods=['GET'])
-def get_all_orders(user_id):
+@jwt_required
+def get_my_orders():
 	""" end point for getting all orders of a specific user """
 	if request.method != "GET":
 		abort(405)
-
+	user_id = get_jwt_identity()[0]
 	customers = db.get_all_orders(user_id)
 	return make_response(jsonify({'All Orders': customers}), 200)
 
-@app.route('/api/v2/orders', methods=['GET'])
-def all_orders():
+@app.route('/api/orders', methods=['GET'])
+@jwt_required
+def all_orders(user_id):
 	""" end point for getting all orders of a specific user """
 	if request.method != "GET":
 		abort(405)
 
-	customers = db.get_all_orders()
+	customers = db.get_orders(user_id)
 	return make_response(jsonify({'All Orders': customers}), 200)    
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['GET'])
+@jwt_required
 def get_single_order(order_id):
 	""" end point for getting a single order """
 	if request.method != "GET":
 		abort(405)
 
-	order = db.get_specific_order(order_id)
+	user_id = get_jwt_identity()[0]
+
+	order = db.get_order_by_id(order_id, user_id)
 	return make_response(jsonify({'msg': order}))
 
 
 @app.route('/api/v2/orders', methods=['POST'])
-def add_single_order(meal_id, user_id):
+@jwt_required
+def add_single_order():
 	""" end point for adding an order """
 	if request.method != "POST":
 		abort(405)
 
 	new_order = request.get_json()
-	db.place_new_order(new_order['meal'],
-	new_order['location'], new_order['quantity'])
+	user_id = get_jwt_identity()[0]
+	meal_id = db.search_menu(new_order['meal_name'])
+	db.place_new_order(new_order['location'], 
+	new_order['quantity'], user_id, meal_id)
 	return make_response(jsonify({'msg': 'order placed'}), 200)
 
 
@@ -112,13 +132,15 @@ def get_menu():
     return jsonify({'message': "current menu"}), 200
 
 @app.route('/api/v2/menu', methods=['POST'])
-def add_to_menu(meal_id, meal_name, meal_description, meal_price):
-    """ end point for addin to the menu """
-    if request.method != "POST":
-        abort(405)
+def add_to_menu():
+	""" end point for addin to the menu """
+	if request.method != "POST":
+		abort(405)
 
-    meal.insert_new_meal(meal_id, meal_name, meal_description, meal_price)
-    return jsonify({'message': "current menu"}), 200    
+	new_meal = request.get_json()
+	
+	meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
+	return jsonify({'message': "menu item added"}), 200	
 
-# import pdb;pdb.set_trace()
+
 
