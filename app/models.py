@@ -8,25 +8,29 @@ ACCESS = {'user': 0,'admin': 1}
 
 
 class Database:
-    
+
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
         self.cur = self.conn.cursor()
 
     def table(self):
+
+        """ This query creates the Users table """
         create_user_table = """ CREATE TABLE IF NOT EXISTS Users(user_id SERIAL PRIMARY KEY, 
         user_name VARCHAR(100) NOT NULL, user_email VARCHAR(120) NOT NULL, 
-        user_password VARCHAR(20) NOT NULL, confirm_password VARCHAR(20) NOT NULL) """
+        user_password VARCHAR(20) NOT NULL) """
         self.cur.execute(create_user_table)
         self.conn.commit()
 
+        """ This query creates the Menu table """
         create_menu = """ CREATE TABLE IF NOT EXISTS Menu(meal_id SERIAL PRIMARY KEY, 
         meal_name VARCHAR(100) NOT NULL,meal_description VARCHAR(20) NOT NULL, 
         meal_price VARCHAR(50) NOT NULL) """
         self.cur.execute(create_menu)
         self.conn.commit()
 
+        """ This SQL query creates the Orders table """
         create_user_orders = """ CREATE TABLE IF NOT EXISTS Orders(user_id SERIAL 
         REFERENCES Users (user_id), meal_id SERIAL REFERENCES Menu (meal_id), 
         order_id SERIAL PRIMARY KEY, location VARCHAR(20) NOT NULL, 
@@ -48,17 +52,18 @@ class Users():
         self.access = access
 
 
-    def insert_new_user(self, user_name, user_email, user_password, confirm_password):
-        """Function to handles user registration"""
-        create = """INSERT INTO Users(user_name, user_email, user_password, confirm_password) 
-        VALUES ('{0}', '{1}', '{2}', '{3}');""".format(user_name, 
-        user_email, user_password, confirm_password)
+    def insert_new_user(self, user_name, user_email, user_password):
+        """Function to handles user registration"""     
+        create = """INSERT INTO Users(user_name, user_email, user_password) 
+        VALUES ('{0}', '{1}', '{2}');""".format(user_name, 
+        user_email, user_password)
         self.cur.execute(create)
         self.conn.commit()
         return True
 
 
     def get_all_users(self):
+        """Function to fetch all registered users"""
         create = """SELECT * FROM Users;"""
         self.cur.execute(create)
         return True

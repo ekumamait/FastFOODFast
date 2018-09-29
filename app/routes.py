@@ -41,9 +41,9 @@ def sign_up():
 
 	new_user = request.get_json()
 	customers = Users(new_user['user_name'], new_user['user_password'],new_user['user_email'])	
-
+	
 	customers.insert_new_user(new_user["user_name"], new_user["user_email"], 
-	new_user["user_password"], new_user["confirm_password"])
+	new_user["user_password"])
 	return jsonify({'msg': 'account created'}), 200
 
 
