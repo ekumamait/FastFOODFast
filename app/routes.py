@@ -69,6 +69,7 @@ def get_my_orders():
 	""" end point for getting all orders of a specific user """
 	if request.method != "GET":
 		abort(405)
+		
 	user_id = get_jwt_identity()[0]
 	customers = db.get_all_orders(user_id)
 	return make_response(jsonify({'All Orders': customers}), 200)
@@ -108,7 +109,7 @@ def add_single_order():
 	user_id = get_jwt_identity()[0]
 	meal_id = db.search_menu(new_order['meal_name'])
 	db.place_new_order(new_order['location'], 
-	new_order['quantity'], user_id, meal_id)
+	new_order['quantity'], user_id, meal_id[0])
 	return make_response(jsonify({'msg': 'order placed'}), 200)
 
 
