@@ -33,7 +33,7 @@ def bad_request(error):
 	return make_response(jsonify({'error': 'incomplete Request'}), 400)
 
 
-@app.route('/api/v2/sign_up', methods = ['POST'])
+@app.route('/api/v2/auth/sign_up', methods = ['POST'])
 def sign_up():
 	""" end point for signing up a user """
 	if request.method != "POST":
@@ -47,7 +47,7 @@ def sign_up():
 	return jsonify({'msg': 'account created'}), 200
 
 
-@app.route('/api/v2/login', methods=['POST'])
+@app.route('/api/v2/auth/login', methods=['POST'])
 def login():
 	""" end point for logging in a user """
 	user = request.json
@@ -63,7 +63,7 @@ def login():
 	return jsonify(access_token=access_token), 200
 
 
-@app.route('/api/v2/orders', methods=['POST'])
+@app.route('/api/v2/users/orders', methods=['POST'])
 @jwt_required
 def add_single_order():
 	""" end point for adding an order """
@@ -78,7 +78,7 @@ def add_single_order():
 	return make_response(jsonify({'msg': 'order placed'}), 200)
 
 
-@app.route('/api/v2/orders', methods=['GET'])
+@app.route('/api/v2/users/orders', methods=['GET'])
 @jwt_required
 def get_my_orders():
 	""" end point for getting all orders of a specific user """
@@ -90,7 +90,7 @@ def get_my_orders():
 	return make_response(jsonify({'All Orders': customers}), 200)
 
 
-@app.route('/api/orders', methods=['GET'])
+@app.route('/api/v2/orders', methods=['GET'])
 def all_orders():
 	""" end point for getting all orders of a specific user """
 	if request.method != "GET":
