@@ -129,8 +129,8 @@ def get_menu():
     if request.method != "GET":
         abort(405)
 
-    meal.get_all_meals()
-    return jsonify({'message': "current menu"}), 200
+    current_menu = meal.get_all_meals()
+    return jsonify({'message': current_menu}), 200
 
 @app.route('/api/v2/menu', methods=['POST'])
 def add_to_menu():

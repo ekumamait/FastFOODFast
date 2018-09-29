@@ -86,7 +86,8 @@ class Menu():
         """A function to get all meals in the menu in database"""
         create = """SELECT * FROM Menu;"""
         self.cur.execute(create)
-        return True
+        meals = self.cur.fetchall() 
+        return meals
 
 
 class Orders():
