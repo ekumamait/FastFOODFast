@@ -5,13 +5,12 @@
 
 from flask import jsonify, request, abort, make_response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token,get_jwt_identity
-import datetime
 from app import app
-from app.models import Users, Orders, Menu
+from app.models import Users, Orders, Menu, Database
 
 db = Orders()
 meal = Menu()
-now = datetime.datetime.now()
+TS = Database()
 
 
 @app.errorhandler(404)
@@ -111,13 +110,13 @@ def get_single_order(order_id):
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['PUT'])
-def edit_single_order(order_id, user_id):
+def edit_single_order(order_id):
     """ end point for editting an order """
     if request.method != "PUT":
         abort(405)
 
     edit_order = request.get_json()
-    db.edit_specific_order(edit_order, order_id, user_id)
+    db.edit_specific_order(order_id, edit_order['status'])
     return make_response(jsonify({'msg': 'Order updated'}), 200)
 
 @app.route('/api/v2/menu', methods=['GET'])
@@ -139,6 +138,15 @@ def add_to_menu():
 	
 	meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
 	return jsonify({'message': "menu item added"}), 200	
+
+@app.route('/api/v2/users/<int:user_id>', methods=['PUT'])
+def access(user_id):
+	""" end point for editting an order """
+	if request.method != "PUT":
+		abort(405)
+
+	TS.promote_user(user_id)
+	return make_response(jsonify({'msg': 'role updated'}), 200) 	
 
 
 

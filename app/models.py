@@ -36,6 +36,14 @@ class Database:
         self.cur.execute(create_user_orders)
         self.conn.commit()
         self.conn.close()
+        
+    def promote_user(self, user_id):
+        """Function to promote user to admin"""
+        create =  """UPDATE Users SET admin=True 
+        WHERE user_id='{0}'""".format(user_id)
+        self.cur.execute(create)
+        self.conn.commit()
+        return True
 
 
 class Users():
@@ -63,15 +71,9 @@ class Users():
         create = """SELECT * FROM Users;"""
         self.cur.execute(create)
         return True
+   
 
-    def promote_user(self, user_name):
-        """Function to promote user to admin"""
-        create = """UPDATE Users SET admin = TRUE WHERE ;""" 
-        self.cur.execute(create)
-        self.conn.commit()
-        return True   
-
-      
+    
 class Menu():
     
     def __init__(self):
@@ -133,10 +135,10 @@ class Orders():
         return orders
 
 
-    def edit_specific_order(self, order_id, status, user_id):
+    def edit_specific_order(self, order_id, status):
         """Function to edit an orders status"""
         create =  """UPDATE Orders SET status='{0}' 
-        WHERE order_id='{1}' AND user_id='{2}'""".format(status, order_id, user_id)
+        WHERE order_id='{1}'""".format(status, order_id)
         self.cur.execute(create)
         self.conn.commit()
         return True 
