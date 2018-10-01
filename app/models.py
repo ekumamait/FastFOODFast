@@ -4,8 +4,6 @@
 """
 import psycopg2
 
-ACCESS = {'user': 0,'admin': 1}
-
 
 class Database:
 
@@ -19,7 +17,7 @@ class Database:
         """ This query creates the Users table """
         create_user_table = """ CREATE TABLE IF NOT EXISTS Users(user_id SERIAL PRIMARY KEY, 
         user_name VARCHAR(100) NOT NULL, user_email VARCHAR(120) NOT NULL, 
-        user_password VARCHAR(20) NOT NULL) """
+        user_password VARCHAR(20) NOT NULL, admin BOOLEAN NOT NULL) """
         self.cur.execute(create_user_table)
         self.conn.commit()
 
@@ -34,7 +32,7 @@ class Database:
         create_user_orders = """ CREATE TABLE IF NOT EXISTS Orders(user_id SERIAL 
         REFERENCES Users (user_id), meal_id SERIAL REFERENCES Menu (meal_id), 
         order_id SERIAL PRIMARY KEY, location VARCHAR(20) NOT NULL, 
-        quantity VARCHAR(20) NOT NULL) """
+        quantity VARCHAR(20) NOT NULL, order_date DATE NOT NULL DEFAULT CURRENT_DATE, status VARCHAR(20)) """
         self.cur.execute(create_user_orders)
         self.conn.commit()
         self.conn.close()
@@ -42,20 +40,18 @@ class Database:
 
 class Users():
     
-    def __init__(self, user_name, user_email, user_password, access=ACCESS['user']):
+    def __init__(self, user_name, user_email, user_password):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
         self.cur = self.conn.cursor()
         self.user_name = user_name
         self.user_email = user_email
         self.user_password = user_password
-        self.access = access
-
 
     def insert_new_user(self, user_name, user_email, user_password):
         """Function to handles user registration"""     
-        create = """INSERT INTO Users(user_name, user_email, user_password) 
-        VALUES ('{0}', '{1}', '{2}');""".format(user_name, 
+        create = """INSERT INTO Users(user_name, user_email, user_password, admin) 
+        VALUES ('{0}', '{1}', '{2}', FALSE);""".format(user_name, 
         user_email, user_password)
         self.cur.execute(create)
         self.conn.commit()
@@ -68,13 +64,12 @@ class Users():
         self.cur.execute(create)
         return True
 
-
-    def is_admin(self):
-        return self.access == ACCESS['admin']
-
-
-    def allowed(self, access_level):
-        return self.access >= access_level  
+    def promote_user(self, user_name):
+        """Function to promote user to admin"""
+        create = """UPDATE Users SET admin = TRUE WHERE ;""" 
+        self.cur.execute(create)
+        self.conn.commit()
+        return True   
 
       
 class Menu():
@@ -113,8 +108,8 @@ class Orders():
 
     def place_new_order(self, location, quantity, user_id, meal_id):
         """Function to place an order"""
-        create = """INSERT INTO Orders(location, quantity, user_id, meal_id) 
-        VALUES ('{0}', '{1}', '{2}', '{3}')""".format(location, 
+        create = """INSERT INTO Orders(location, quantity, user_id, meal_id, status) 
+        VALUES ('{0}', '{1}', '{2}', '{3}', 'pending')""".format(location, 
         quantity, user_id, meal_id)        
         self.cur.execute(create)
         self.conn.commit()

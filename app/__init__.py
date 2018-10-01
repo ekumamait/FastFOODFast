@@ -5,8 +5,8 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token,get
 
 app = Flask(__name__)
 
-# Setup the Flask-JWT-Extended extension
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+
+app.config['JWT_SECRET_KEY'] = 'super-secret'
 jwt = JWTManager(app)
 
 from app.models import Database
@@ -15,4 +15,3 @@ db.table()
 
 from app import routes
 from app.models import Users, Orders, Menu
-# import pdb;pdb.set_trace()
