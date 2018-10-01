@@ -54,6 +54,7 @@ This is an online food order and delivery service app for a restaurant where reg
 | /api/v2/users/orders| GET | `Fetch all logged in user's orders` |
 | /api/v2/orders| GET | `Fetch all users orders` |
 | /api/v2/orders/order_id| GET | `Fetch specific order` |
+| /api/v2/orders/order_id| PUT | `Update the status of an order` |
 | /api/v2/menu| GET | `Fetch Menu` |
 | /api/v2/menu| POST | `Add meal to the Menu` |
 
