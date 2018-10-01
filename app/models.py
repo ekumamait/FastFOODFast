@@ -14,6 +14,7 @@ class Database:
 
     def table(self):
 
+
         """ This query creates the Users table """
         create_user_table = """ CREATE TABLE IF NOT EXISTS Users(user_id SERIAL PRIMARY KEY, 
         user_name VARCHAR(100) NOT NULL, user_email VARCHAR(120) NOT NULL, 
@@ -21,12 +22,14 @@ class Database:
         self.cur.execute(create_user_table)
         self.conn.commit()
 
+
         """ This query creates the Menu table """
         create_menu = """ CREATE TABLE IF NOT EXISTS Menu(meal_id SERIAL PRIMARY KEY, 
         meal_name VARCHAR(100) NOT NULL,meal_description VARCHAR(20) NOT NULL, 
         meal_price VARCHAR(50) NOT NULL) """
         self.cur.execute(create_menu)
         self.conn.commit()
+
 
         """ This SQL query creates the Orders table """
         create_user_orders = """ CREATE TABLE IF NOT EXISTS Orders(user_id SERIAL 
@@ -36,25 +39,16 @@ class Database:
         self.cur.execute(create_user_orders)
         self.conn.commit()
         self.conn.close()
-        
-    def promote_user(self, user_id):
-        """Function to promote user to admin"""
-        create =  """UPDATE Users SET admin=True 
-        WHERE user_id='{0}'""".format(user_id)
-        self.cur.execute(create)
-        self.conn.commit()
-        return True
 
 
 class Users():
+
     
-    def __init__(self, user_name, user_email, user_password):
+    def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
         self.cur = self.conn.cursor()
-        self.user_name = user_name
-        self.user_email = user_email
-        self.user_password = user_password
+
 
     def insert_new_user(self, user_name, user_email, user_password):
         """Function to handles user registration"""     
@@ -73,8 +67,17 @@ class Users():
         return True
    
 
+    def promote_user(self, user_id):
+        """Function to promote user to admin"""
+        create =  """UPDATE Users SET admin=True 
+        WHERE user_id='{0}'""".format(user_id)
+        self.cur.execute(create)
+        self.conn.commit()
+        return True
+
     
 class Menu():
+    
     
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
@@ -102,6 +105,7 @@ class Menu():
 
 class Orders():
 
+
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
@@ -111,7 +115,7 @@ class Orders():
     def place_new_order(self, location, quantity, user_id, meal_id):
         """Function to place an order"""
         create = """INSERT INTO Orders(location, quantity, user_id, meal_id, status) 
-        VALUES ('{0}', '{1}', '{2}', '{3}', 'pending')""".format(location, 
+        VALUES ('{0}', '{1}', '{2}', '{3}', 'new')""".format(location, 
         quantity, user_id, meal_id)        
         self.cur.execute(create)
         self.conn.commit()
@@ -167,5 +171,5 @@ class Orders():
         meal_id = self.cur.fetchone() 
         return meal_id    
    
-# import pdb;pdb.set_trace()
+
 
