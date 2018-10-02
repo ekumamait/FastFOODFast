@@ -3,6 +3,7 @@
 	contains the application database connection logic and queries.
 """
 import psycopg2
+from psycopg2.extras import RealDictCursor
 
 
 class Database:
@@ -10,7 +11,7 @@ class Database:
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
-        self.cur = self.conn.cursor()
+        self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
     def table(self):
 
@@ -47,7 +48,7 @@ class Users():
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
-        self.cur = self.conn.cursor()
+        self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
 
     def insert_new_user(self, user_name, user_email, user_password):
@@ -64,15 +65,26 @@ class Users():
         """Function to fetch all registered users"""
         create = """SELECT * FROM Users;"""
         self.cur.execute(create)
-        return True
+        users = self.cur.fetchall()
+        return users
    
 
-    def search_user_role(self):
+    def search_user_role(self, user_name):
+        """Function to search Users and return user id"""
+        create = """SELECT admin FROM Users WHERE 
+        user_name='{0}'""".format(user_name)
+        self.cur.execute(create)
+        role = self.cur.fetchone() 
+        return role
+
+
+    def search_user_name(self, user_name):
         """Function to search Users and return user id"""
         create = """SELECT * FROM Users WHERE 
-        admin=TRUE"""
+        user_name='{0}'""".format(user_name)
         self.cur.execute(create)
-        return True 
+        name = self.cur.fetchone() 
+        return name
 
 
     def promote_user(self, user_id):
@@ -90,7 +102,7 @@ class Menu():
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
-        self.cur = self.conn.cursor()
+        self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
 
     def insert_new_meal(self, meal_name, meal_description, meal_price):
@@ -117,7 +129,7 @@ class Orders():
     def __init__(self):
         self.conn = psycopg2.connect(dbname='fastfoodfast', 
         host='localhost', user='postgres', password='incorrect')
-        self.cur = self.conn.cursor()
+        self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
 
     def place_new_order(self, location, quantity, user_id, meal_id):

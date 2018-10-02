@@ -7,6 +7,7 @@ from flask import jsonify, request, abort, make_response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token,get_jwt_identity
 from app import app
 from app.models import Users, Orders, Menu
+import re
 
 ticket = Orders()
 meal = Menu()
@@ -39,11 +40,30 @@ def sign_up():
 		abort(405)
 
 	new_user = request.get_json()
-	
-	customers.insert_new_user(new_user["user_name"], new_user["user_email"], 
-	new_user["user_password"])
-	return jsonify({'msg': 'account created'}), 201
 
+	data = customers.search_user_name(new_user['user_name'])
+	
+	if not data:
+
+		if new_user['user_name'] is not None and new_user['user_name'].strip() == "":
+			return make_response(jsonify({"msg": "username can not be blank "}), 401)
+
+		if new_user['user_email'] is not None and new_user['user_email'].strip() == "":
+			return make_response(jsonify({"msg": "useremail can not be blank "}), 401)
+
+		if new_user['user_password'] is not None and new_user['user_password'].strip() == "":
+			return make_response(jsonify({"msg": "userpassword can not be blank "}), 401)
+
+		if not re.match(r"[^@]+@[^@]+\.[^@]+", new_user['user_email']):
+			return make_response(jsonify({"msg": "incorrect email format "}), 401)
+
+		customers.insert_new_user(new_user["user_name"], new_user["user_email"], 
+		new_user["user_password"])
+		return jsonify({'msg': 'account created'}), 201
+
+	else:
+		return make_response(jsonify({"msg": "user already exists"}), 401)			
+		
 
 @app.route('/api/v2/auth/login', methods=['POST'])
 def login():
@@ -57,8 +77,9 @@ def login():
 
 	
 	userid = ticket.search_user(user['Username'])
-	role = customers.search_user_role()
-	user_info = {user: ' ', 'Role': ' '}
+	role = customers.search_user_role(user['Username'])
+
+	user_info = {'userid': userid,'role': role}
 	access_token = create_access_token(identity=user_info)
 	return jsonify(access_token=access_token), 200
 
@@ -71,7 +92,8 @@ def add_single_order():
 		abort(405)
 
 	new_order = request.get_json()
-	user_id = get_jwt_identity()[0]
+	user_id = get_jwt_identity()['userid'][0]
+	
 	meal_id = ticket.search_menu(new_order['meal_name'])
 	ticket.place_new_order(new_order['location'], 
 	new_order['quantity'], user_id, meal_id[0])
@@ -85,7 +107,7 @@ def get_my_orders():
 	if request.method != "GET":
 		abort(405)
 		
-	user_id = get_jwt_identity()[0]
+	user_id = get_jwt_identity()['userid'][0]
 	customers = ticket.get_all_orders(user_id)
 	return make_response(jsonify({'All Orders': customers}), 200)
 
@@ -97,7 +119,7 @@ def all_orders():
 	if request.method != "GET":
 		abort(405)
 
-	current_user = get_jwt_identity()[0]
+	current_user = get_jwt_identity()['role'][0]
 	if current_user is True: 
 		all = ticket.get_orders()
 		return make_response(jsonify({'All Orders': all}), 200)
@@ -111,7 +133,7 @@ def get_single_order(order_id):
 	if request.method != "GET":
 		abort(405)
 
-	current_user = customers.search_user_role()
+	current_user = get_jwt_identity()['role'][0]
 	if current_user is True:
 		order = ticket.get_order_by_id(order_id)
 		return make_response(jsonify({'msg': order}))
@@ -126,10 +148,11 @@ def edit_single_order(order_id):
 		abort(405)
 
 	edit_order = request.get_json()
-	current_user = customers.search_user_role()
+	current_user = get_jwt_identity()['role'][0]
 	if current_user is True:
 		ticket.edit_specific_order(order_id, edit_order['status'])
 		return make_response(jsonify({'msg': 'Order updated'}), 201)
+	return make_response(jsonify({'error': 'not authorized'}))	
 
 
 @app.route('/api/v2/menu', methods=['GET'])
@@ -151,7 +174,8 @@ def add_to_menu():
 		abort(405)
 
 	new_meal = request.get_json()
-	current_user = customers.search_user_role()
+	current_user = get_jwt_identity()['role'][0]
+	
 	if current_user is True: 
 		meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
 		return jsonify({'message': "menu item added"}), 201	
@@ -168,4 +192,5 @@ def access(user_id):
 	return make_response(jsonify({'msg': 'role updated'}), 201) 	
 
 
-
+# import pdb;pdb.set_trace()
+# import pdb;pdb.set_trace() 
