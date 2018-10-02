@@ -42,7 +42,7 @@ def sign_up():
 	
 	customers.insert_new_user(new_user["user_name"], new_user["user_email"], 
 	new_user["user_password"])
-	return jsonify({'msg': 'account created'}), 200
+	return jsonify({'msg': 'account created'}), 201
 
 
 @app.route('/api/v2/auth/login', methods=['POST'])
@@ -73,7 +73,7 @@ def add_single_order():
 	meal_id = ticket.search_menu(new_order['meal_name'])
 	ticket.place_new_order(new_order['location'], 
 	new_order['quantity'], user_id, meal_id[0])
-	return make_response(jsonify({'msg': 'order placed'}), 200)
+	return make_response(jsonify({'msg': 'order placed'}), 201)
 
 
 @app.route('/api/v2/users/orders', methods=['GET'])
@@ -89,37 +89,50 @@ def get_my_orders():
 
 
 @app.route('/api/v2/orders', methods=['GET'])
+@jwt_required
 def all_orders():
 	""" end point for fetching all available orders """
 	if request.method != "GET":
 		abort(405)
-	
-	customers = ticket.get_orders()
-	return make_response(jsonify({'All Orders': customers}), 200)    
+
+	# user_id = get_jwt_identity()[0]
+	current_user = customers.search_user_role()
+	if current_user is True: 
+		all = ticket.get_orders()
+		return make_response(jsonify({'All Orders': all}), 200)
+	return make_response(jsonify({'error': 'not authorized'}), 401)    
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['GET'])
+@jwt_required
 def get_single_order(order_id):
 	""" end point for fetching a single order by order id """
 	if request.method != "GET":
 		abort(405)
 
-	order = ticket.get_order_by_id(order_id)
-	return make_response(jsonify({'msg': order}))
+	current_user = customers.search_user_role()
+	if current_user is True:
+		order = ticket.get_order_by_id(order_id)
+		return make_response(jsonify({'msg': order}))
+	return make_response(jsonify({'error': 'not authorized'})) 	
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['PUT'])
+@jwt_required
 def edit_single_order(order_id):
-    """ end point for editting a specific order """
-    if request.method != "PUT":
-        abort(405)
+	""" end point for editting a specific order """
+	if request.method != "PUT":
+		abort(405)
 
-    edit_order = request.get_json()
-    ticket.edit_specific_order(order_id, edit_order['status'])
-    return make_response(jsonify({'msg': 'Order updated'}), 200)
+	edit_order = request.get_json()
+	current_user = customers.search_user_role()
+	if current_user is True:
+		ticket.edit_specific_order(order_id, edit_order['status'])
+		return make_response(jsonify({'msg': 'Order updated'}), 201)
 
 
 @app.route('/api/v2/menu', methods=['GET'])
+@jwt_required
 def get_menu():
     """ end point for fetching the menu """
     if request.method != "GET":
@@ -130,15 +143,18 @@ def get_menu():
 
 
 @app.route('/api/v2/menu', methods=['POST'])
+@jwt_required
 def add_to_menu():
 	""" end point for adding a new meal to the menu """
 	if request.method != "POST":
 		abort(405)
 
 	new_meal = request.get_json()
-	
-	meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
-	return jsonify({'message': "menu item added"}), 200	
+	current_user = customers.search_user_role()
+	if current_user is True: 
+		meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
+		return jsonify({'message': "menu item added"}), 201	
+	return make_response(jsonify({'error': 'not authorized'})) 
 
 
 @app.route('/api/v2/users/<int:user_id>', methods=['PUT'])
@@ -148,7 +164,7 @@ def access(user_id):
 		abort(405)
 
 	customers.promote_user(user_id)
-	return make_response(jsonify({'msg': 'role updated'}), 200) 	
+	return make_response(jsonify({'msg': 'role updated'}), 201) 	
 
 
 

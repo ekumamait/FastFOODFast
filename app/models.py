@@ -67,6 +67,15 @@ class Users():
         return True
    
 
+    def search_user_role(self):
+        """Function to search Users and return user id"""
+        create = """SELECT * FROM Users WHERE 
+        admin=TRUE"""
+        self.cur.execute(create)
+        self.conn.commit()
+        return True 
+
+
     def promote_user(self, user_id):
         """Function to promote user to admin"""
         create =  """UPDATE Users SET admin=True 
