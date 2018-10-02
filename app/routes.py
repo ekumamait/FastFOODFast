@@ -55,9 +55,11 @@ def login():
 	if not user['Password']:
 		return jsonify({"msg": "Missing password parameter"}), 400
 
+	
 	userid = ticket.search_user(user['Username'])
-
-	access_token = create_access_token(identity=userid)
+	role = customers.search_user_role()
+	user_info = {user: ' ', 'Role': ' '}
+	access_token = create_access_token(identity=user_info)
 	return jsonify(access_token=access_token), 200
 
 
@@ -95,8 +97,7 @@ def all_orders():
 	if request.method != "GET":
 		abort(405)
 
-	# user_id = get_jwt_identity()[0]
-	current_user = customers.search_user_role()
+	current_user = get_jwt_identity()[0]
 	if current_user is True: 
 		all = ticket.get_orders()
 		return make_response(jsonify({'All Orders': all}), 200)

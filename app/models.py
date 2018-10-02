@@ -72,7 +72,6 @@ class Users():
         create = """SELECT * FROM Users WHERE 
         admin=TRUE"""
         self.cur.execute(create)
-        self.conn.commit()
         return True 
 
 
