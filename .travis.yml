@@ -15,6 +15,7 @@ services:
 before_script:
   - psql -c "CREATE USER ekumamait WITH PASSWORD 'incorrect';" -U postgres
   - psql -c 'create database fastfoodfasttest;' -U postgres
+  - psql -c 'create database fastfoodfast;' -U postgres
 
 script:
   - nosetests -v --with-coverage --cover-package=app
