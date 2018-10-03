@@ -25,6 +25,7 @@ omit = venv/*
       */mimetypes.py
       */stringprep.py
       */app/__init__.py
+      */typing.py
 
 
 [html]

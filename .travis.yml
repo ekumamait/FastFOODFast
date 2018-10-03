@@ -1,0 +1,23 @@
+language: python
+python:
+  - "3.6"
+cache: pip
+
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
+  - pip install coveralls
+  - pip install nose
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database fastfoodfast;' -U postgres
+
+# command to run tests
+script:
+  - nosetests -v --with-coverage --cover-package=app
+
+after_success:
+- coveralls

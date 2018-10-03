@@ -3,15 +3,24 @@
 	contains the application database connection logic and queries.
 """
 import psycopg2
+import os
 from psycopg2.extras import RealDictCursor
 
 
 class Database:
 
     def __init__(self):
-        self.conn = psycopg2.connect(dbname='fastfoodfast', 
-        host='localhost', user='postgres', password='incorrect')
-        self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
+
+        app_env = os.environ.get('app_env', None)
+        
+        if app_env == 'testing':
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
+            host='localhost', user='postgres', password='incorrect')
+            self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
+        else:    
+            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            host='localhost', user='postgres', password='incorrect')
+            self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
     def table(self):
 
@@ -39,7 +48,17 @@ class Database:
         quantity VARCHAR(20) NOT NULL, order_date DATE NOT NULL DEFAULT CURRENT_DATE, status VARCHAR(20)) """
         self.cur.execute(create_user_orders)
         self.conn.commit()
-        self.conn.close()
+
+    def close_connection(self):
+        self.cur.close()
+        self.conn.close()     
+
+    def drop_tables(self):
+        """ This SQL query creates the Orders table """
+        drop = """ DROP TABLE Orders, Menu, Users """
+        self.cur.execute(drop)
+
+       
 
 
 class Users():

@@ -8,6 +8,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token,get
 from app import app
 from app.models import Users, Orders, Menu
 import re
+import datetime
 
 ticket = Orders()
 meal = Menu()
@@ -80,7 +81,8 @@ def login():
 	role = customers.search_user_role(user['Username'])
 
 	user_info = {'userid': userid,'role': role}
-	access_token = create_access_token(identity=user_info)
+	expires = datetime.timedelta(hours=4)
+	access_token = create_access_token(identity=user_info, expires_delta=expires)
 	return jsonify(access_token=access_token), 200
 
 
@@ -92,11 +94,11 @@ def add_single_order():
 		abort(405)
 
 	new_order = request.get_json()
-	user_id = get_jwt_identity()['userid'][0]
+	user_id = get_jwt_identity()['userid']['user_id']
 	
-	meal_id = ticket.search_menu(new_order['meal_name'])
+	meal_id = ticket.search_menu(new_order['meal_name'])['meal_id']
 	ticket.place_new_order(new_order['location'], 
-	new_order['quantity'], user_id, meal_id[0])
+	new_order['quantity'], user_id, meal_id)
 	return make_response(jsonify({'msg': 'order placed'}), 201)
 
 
@@ -107,7 +109,7 @@ def get_my_orders():
 	if request.method != "GET":
 		abort(405)
 		
-	user_id = get_jwt_identity()['userid'][0]
+	user_id = get_jwt_identity()['userid']['user_id']
 	customers = ticket.get_all_orders(user_id)
 	return make_response(jsonify({'All Orders': customers}), 200)
 
@@ -119,7 +121,7 @@ def all_orders():
 	if request.method != "GET":
 		abort(405)
 
-	current_user = get_jwt_identity()['role'][0]
+	current_user = get_jwt_identity()['role']['admin']
 	if current_user is True: 
 		all = ticket.get_orders()
 		return make_response(jsonify({'All Orders': all}), 200)
@@ -133,7 +135,7 @@ def get_single_order(order_id):
 	if request.method != "GET":
 		abort(405)
 
-	current_user = get_jwt_identity()['role'][0]
+	current_user = get_jwt_identity()['role']['admin']
 	if current_user is True:
 		order = ticket.get_order_by_id(order_id)
 		return make_response(jsonify({'msg': order}))
@@ -148,7 +150,7 @@ def edit_single_order(order_id):
 		abort(405)
 
 	edit_order = request.get_json()
-	current_user = get_jwt_identity()['role'][0]
+	current_user = get_jwt_identity()['role']['admin']
 	if current_user is True:
 		ticket.edit_specific_order(order_id, edit_order['status'])
 		return make_response(jsonify({'msg': 'Order updated'}), 201)
@@ -174,7 +176,7 @@ def add_to_menu():
 		abort(405)
 
 	new_meal = request.get_json()
-	current_user = get_jwt_identity()['role'][0]
+	current_user = get_jwt_identity()['role']['admin']
 	
 	if current_user is True: 
 		meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
@@ -191,6 +193,3 @@ def access(user_id):
 	customers.promote_user(user_id)
 	return make_response(jsonify({'msg': 'role updated'}), 201) 	
 
-
-# import pdb;pdb.set_trace()
-# import pdb;pdb.set_trace() 
