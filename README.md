@@ -2,7 +2,7 @@
 ##### WELCOME TO FastFOODFast
 
 ------------
-
+[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast)
 ------------
 
 ##### TABLE OF CONTENT;
