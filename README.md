@@ -57,12 +57,20 @@ This is an online food order and delivery service app for a restaurant where reg
 | /api/v2/orders/order_id| PUT | `Update the status of an order` |
 | /api/v2/menu| GET | `Fetch Menu` |
 | /api/v2/menu| POST | `Add meal to the Menu` |
+| /api/v2/users/user_id| PUT | `Promote user role to admin` |
 
 ------------
 
 ###### :microscope: TESTS;
 
-Pending...   
+- [x] Tests for routes 
+
+- command to run tests:
+    ` nosetests -v `
+
+- command to run tests with coverage:
+    ` nosetests -v --with-coverage ` 
+      
 ------------
 
 ###### Project Demo;
