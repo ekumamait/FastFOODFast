@@ -76,6 +76,16 @@ def login():
 	if not user['Password']:
 		return jsonify({"msg": "Missing password parameter"}), 400
 
+	if user['Username'] is not None and user['Username'].strip() == "":
+			return jsonify({"msg": "username can not be blank "}), 401		
+
+	if user['Password'] is not None and user['Password'].strip() == "":
+			return jsonify({"msg": "userpassword can not be blank "}), 401		
+
+	password = customers.search_user_password(user['Password'])
+
+	if not password:
+		return jsonify({"msg": "wrong password"}), 401
 	
 	userid = ticket.search_user(user['Username'])
 	role = customers.search_user_role(user['Username'])
@@ -83,7 +93,7 @@ def login():
 	user_info = {'userid': userid,'role': role}
 	expires = datetime.timedelta(hours=4)
 	access_token = create_access_token(identity=user_info, expires_delta=expires)
-	return jsonify(access_token=access_token), 200
+	return jsonify(access_token=access_token, message='succefully'), 200
 
 
 @app.route('/api/v2/users/orders', methods=['POST'])
