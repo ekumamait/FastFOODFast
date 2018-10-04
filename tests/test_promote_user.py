@@ -13,7 +13,7 @@ class My_TestClass(unittest.TestCase):
 
     def test_sign_up(self):
         """tests for promote up a user"""
-        response =  self.app.post('/api/v2/users/20')
+        response =  self.app.put('/api/v2/users/20')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.content_type, 'application/json') 
     
