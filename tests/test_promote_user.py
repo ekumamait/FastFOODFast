@@ -11,7 +11,7 @@ class My_TestClass(unittest.TestCase):
         self.dbcon.table()
         self.app = app.test_client()
 
-    def test_sign_up(self):
+    def test_promote_user(self):
         """tests for promote up a user"""
         response =  self.app.put('/api/v2/users/20')
         self.assertEqual(response.status_code, 201)
@@ -20,6 +20,3 @@ class My_TestClass(unittest.TestCase):
     def tearDown(self):
         db = Database()
         db.drop_tables()
-
-if __name__ == '__main__':
-    unittest.main()

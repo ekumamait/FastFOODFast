@@ -82,9 +82,9 @@ class My_TestClass(unittest.TestCase):
         """tests for signing up a user"""
         response =  self.app.post('/api/v2/auth/sign_up', 
         data=json.dumps({
-            "user_name": "javis",
-            "user_email": "javis@mail.com",
-            "user_password": "javis123"
+            "user_name": "wes",
+            "user_email": "wes@mail.com",
+            "user_password": "wes"
             }), 
             content_type='application/json')
         self.assertEqual(response.status_code, 201)
@@ -95,5 +95,3 @@ class My_TestClass(unittest.TestCase):
         db = Database()
         db.drop_tables()
 
-if __name__ == '__main__':
-    unittest.main()

@@ -85,5 +85,3 @@ class My_TestClass(unittest.TestCase):
         db = Database()
         db.drop_tables()
 
-if __name__ == '__main__':
-    unittest.main()

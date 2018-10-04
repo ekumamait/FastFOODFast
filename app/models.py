@@ -22,6 +22,7 @@ class Database:
             self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
+                                                
 
     def table(self):
 
@@ -49,6 +50,7 @@ class Database:
         quantity VARCHAR(20) NOT NULL, order_date DATE NOT NULL DEFAULT CURRENT_DATE, status VARCHAR(20)) """
         self.cur.execute(create_user_orders)
         self.conn.commit()
+        self.cur.close()
 
     def close_connection(self):
         self.cur.close()
@@ -59,6 +61,8 @@ class Database:
         drop = """ DROP TABLE Orders, Menu, Users """
         self.cur.execute(drop)
 
+    def get_connection(self):
+        return self.cur()
        
 
 
@@ -70,6 +74,7 @@ class Users():
         app_env = os.environ.get('app_env', None)
         
         if app_env == 'True':
+            Database().get_connection()
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
             host='ec2-54-243-147-162.compute-1.amazonaws.com', 
             user='tzmenitfctaxao', 
@@ -179,7 +184,8 @@ class Orders():
         
         if app_env == 'True':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
-            host='ec2-54-243-147-162.compute-1.amazonaws.com', user='tzmenitfctaxao', password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
+            host='ec2-54-243-147-162.compute-1.amazonaws.com', user='tzmenitfctaxao', 
+            password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
             self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
@@ -244,7 +250,8 @@ class Orders():
         create = """SELECT meal_id FROM Menu WHERE meal_name='{}'""".format(meal_name)
         self.cur.execute(create)
         meal_id = self.cur.fetchone() 
-        return meal_id    
+        return meal_id  
+
    
 
 
