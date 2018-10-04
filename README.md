@@ -1,8 +1,7 @@
 
 ##### WELCOME TO FastFOODFast
-
 ------------
-[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast) [![Test Coverage](https://api.codeclimate.com/v1/badges/91ef436eedd5ec2532e6/test_coverage)](https://codeclimate.com/github/ekumamait/FastFOODFast/test_coverage)
+[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast) [![Test Coverage](https://api.codeclimate.com/v1/badges/91ef436eedd5ec2532e6/test_coverage)](https://codeclimate.com/github/ekumamait/FastFOODFast/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/91ef436eedd5ec2532e6/maintainability)](https://codeclimate.com/github/ekumamait/FastFOODFast/maintainability)
 ------------
 
 ##### TABLE OF CONTENT;
@@ -75,6 +74,8 @@ This is an online food order and delivery service app for a restaurant where reg
 
 ###### Project Demo;
 
-Pending...
+Here is the link to the Demo:
+https://ekumamaits-fastfoodfast.herokuapp.com/
+
 ------------
 
