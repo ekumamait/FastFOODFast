@@ -106,6 +106,14 @@ class Users():
         return name
 
 
+    def search_user_password(self, Password):
+        """Function to search Users and return user id"""
+        create = """SELECT * FROM Users WHERE 
+        user_password='{0}'""".format(Password)
+        self.cur.execute(create)
+        name = self.cur.fetchone() 
+        return name
+
     def promote_user(self, user_id):
         """Function to promote user to admin"""
         create =  """UPDATE Users SET admin=True 
