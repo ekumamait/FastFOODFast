@@ -13,7 +13,7 @@ class Database:
 
         app_env = os.environ.get('app_env', None)
         
-        if app_env == 'testing':
+        if app_env == 'True':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
             host='ec2-54-243-147-162.compute-1.amazonaws.com', user='tzmenitfctaxao', password='    96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
@@ -140,7 +140,7 @@ class Menu():
 
         app_env = os.environ.get('app_env', None)
         
-        if app_env == 'testing':
+        if app_env == 'True':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
             host='ec2-54-243-147-162.compute-1.amazonaws.com', user='tzmenitfctaxao', password='    96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
@@ -175,7 +175,7 @@ class Orders():
 
         app_env = os.environ.get('app_env', None)
         
-        if app_env == 'testing':
+        if app_env == 'True':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
             host='ec2-54-243-147-162.compute-1.amazonaws.com', user='tzmenitfctaxao', password='    96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)

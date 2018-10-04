@@ -28,6 +28,13 @@ def not_allowed(error):
 	({'error': 'You are trying to use a wrong HTTP Method'}), 405)
 
 
+@app.errorhandler(500)
+def server_down(error):
+	""" Custom HTTP 500 Method server error """
+	return make_response(jsonify
+	({'error': 'server went down'}), 500)
+
+
 @app.errorhandler(400)
 def bad_request(error):
 	""" Custom HTTP 400 Bad Request error """
