@@ -12,7 +12,7 @@
 - [x] **DESCRIPTION**
 - [x] **PROJECT SETUP**
 - [x] **AVAILABLE ROUTES**
-- [ ] **TESTS**
+- [x] **TESTS**
 - [ ] **PROJECT DEMO**
 
 ------------

@@ -148,8 +148,8 @@ def get_single_order(order_id):
 	current_user = get_jwt_identity()['role']['admin']
 	if current_user is True:
 		order = ticket.get_order_by_id(order_id)
-		return make_response(jsonify({'msg': order}))
-	return make_response(jsonify({'error': 'not authorized'})) 	
+		return make_response(jsonify({'msg': order}), 200)
+	return make_response(jsonify({'error': 'not authorized'}), 401) 	
 
 
 @app.route('/api/v2/orders/<int:order_id>', methods=['PUT'])
@@ -164,7 +164,7 @@ def edit_single_order(order_id):
 	if current_user is True:
 		ticket.edit_specific_order(order_id, edit_order['status'])
 		return make_response(jsonify({'msg': 'Order updated'}), 201)
-	return make_response(jsonify({'error': 'not authorized'}))	
+	return make_response(jsonify({'error': 'not authorized'}), 401)	
 
 
 @app.route('/api/v2/menu', methods=['GET'])
@@ -191,7 +191,7 @@ def add_to_menu():
 	if current_user is True: 
 		meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
 		return jsonify({'message': "menu item added"}), 201	
-	return make_response(jsonify({'error': 'not authorized'})) 
+	return make_response(jsonify({'error': 'not authorized'}), 401) 
 
 
 @app.route('/api/v2/users/<int:user_id>', methods=['PUT'])

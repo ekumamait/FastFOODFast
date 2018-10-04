@@ -2,7 +2,7 @@ import unittest
 import json
 from app import app
 from app.models import Database
-from app.models import Users, Orders, Menu
+from app.models import Users
 from tests.token import Token
 
 class My_TestClass(unittest.TestCase):
