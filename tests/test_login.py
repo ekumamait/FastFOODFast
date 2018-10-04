@@ -3,6 +3,7 @@ import json
 from app import app
 from app.models import Database
 from app.models import Users, Orders, Menu
+from tests.token import Token
 
 class My_TestClass(unittest.TestCase):
 
@@ -22,11 +23,10 @@ class My_TestClass(unittest.TestCase):
         content_type='application/json')
         response =  self.app.post('/api/v2/auth/login', 
         data=json.dumps(dict(
-            username="james", 
-            password="12")), 
+            Username="james", 
+            Password="12")), 
             content_type='application/json')
-
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertEqual(response.content_type, 'application/json')
 
     def test_empty_username_fields(self):
@@ -39,11 +39,11 @@ class My_TestClass(unittest.TestCase):
         content_type='application/json')
         response =  self.app.post('/api/v2/auth/login', 
         data=json.dumps(dict(
-            username=" ", 
-            password="12")), 
+            Username=" ", 
+            Password="12")), 
             content_type='application/json')
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertEqual(response.content_type, 'application/json')
 
     def test_empty_password_fields(self):
@@ -56,11 +56,11 @@ class My_TestClass(unittest.TestCase):
         content_type='application/json')
         response =  self.app.post('/api/v2/auth/login', 
         data=json.dumps(dict(
-            username="james", 
-            password=" ")), 
+            Username="james", 
+            Password=" ")), 
             content_type='application/json')
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertEqual(response.content_type, 'application/json')  
 
     def test_login(self):
@@ -73,12 +73,12 @@ class My_TestClass(unittest.TestCase):
             content_type='application/json')
         response =  self.app.post('/api/v2/auth/login', 
         data=json.dumps(dict(
-            username="james", 
-            password="1234")), 
+            Username="james", 
+            Password="1234")), 
             content_type='application/json')
-        token = json.loads(response.data.decode())["token"]
+        message = json.loads(response.data)['message']
         self.assertEqual(response.status_code, 200)
-        self.assertIn(token, str(response.data)) 
+        self.assertEqual(message, 'succefully') 
                 
 
     def tearDown(self):
