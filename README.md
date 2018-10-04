@@ -2,7 +2,7 @@
 ##### WELCOME TO FastFOODFast
 
 ------------
-[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast)
+[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast)[![Test Coverage](https://api.codeclimate.com/v1/badges/91ef436eedd5ec2532e6/test_coverage)](https://codeclimate.com/github/ekumamait/FastFOODFast/test_coverage)
 ------------
 
 ##### TABLE OF CONTENT;
