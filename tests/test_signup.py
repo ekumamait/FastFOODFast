@@ -82,9 +82,9 @@ class My_TestClass(unittest.TestCase):
         """tests for signing up a user"""
         response =  self.app.post('/api/v2/auth/sign_up', 
         data=json.dumps({
-            "user_name": "denis",
-            "user_email": "denis@mail.com",
-            "user_password": "denis123"
+            "user_name": "moses",
+            "user_email": "moses@mail.com",
+            "user_password": "mosess123"
             }), 
             content_type='application/json')
         self.assertEqual(response.status_code, 201)
