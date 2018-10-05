@@ -193,11 +193,11 @@ class Orders():
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
 
-    def place_new_order(self, location, quantity, user_id, meal_name):
+    def place_new_order(self, location, quantity, user_id, meal_id):
         """Function to place an order"""
-        create = """INSERT INTO Orders(location, quantity, user_id, meal_name, status) 
+        create = """INSERT INTO Orders(location, quantity, user_id, meal_id, status) 
         VALUES ('{0}', '{1}', '{2}', '{3}', 'new')""".format(location, 
-        quantity, user_id, meal_name)        
+        quantity, user_id, meal_id)        
         self.cur.execute(create)
         self.conn.commit()
         return True 
@@ -247,7 +247,7 @@ class Orders():
 
     def search_menu(self, meal_name):
         """Function to search menu and return meal id"""
-        create = """SELECT * FROM Menu WHERE meal_name='{}'""".format(meal_name)
+        create = """SELECT meal_id FROM Menu WHERE meal_name='{}'""".format(meal_name)
         self.cur.execute(create)
         meal = self.cur.fetchone() 
         return meal  

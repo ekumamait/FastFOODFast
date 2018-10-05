@@ -118,7 +118,7 @@ def add_single_order():
 	if meal_id is None:
 		return 'meal does not exist'
 	ticket.place_new_order(new_order['location'], 
-	new_order['quantity'], user_id, meal_id)
+	new_order['quantity'], user_id, meal_id['meal_id'])
 	return make_response(jsonify({'msg': 'order placed'}), 201)
 
 
