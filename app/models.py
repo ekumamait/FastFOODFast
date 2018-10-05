@@ -11,7 +11,7 @@ class Database:
 
     def __init__(self):
 
-        app_env = os.environ.get('app_env', None)
+        app_env = os.environ.get('app_env')
         
         if app_env == 'True':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
@@ -193,11 +193,11 @@ class Orders():
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
 
-    def place_new_order(self, location, quantity, user_id, meal_id):
+    def place_new_order(self, location, quantity, user_id, meal_name):
         """Function to place an order"""
-        create = """INSERT INTO Orders(location, quantity, user_id, meal_id, status) 
+        create = """INSERT INTO Orders(location, quantity, user_id, meal_name, status) 
         VALUES ('{0}', '{1}', '{2}', '{3}', 'new')""".format(location, 
-        quantity, user_id, meal_id)        
+        quantity, user_id, meal_name)        
         self.cur.execute(create)
         self.conn.commit()
         return True 
@@ -247,10 +247,10 @@ class Orders():
 
     def search_menu(self, meal_name):
         """Function to search menu and return meal id"""
-        create = """SELECT meal_id FROM Menu WHERE meal_name='{}'""".format(meal_name)
+        create = """SELECT * FROM Menu WHERE meal_name='{}'""".format(meal_name)
         self.cur.execute(create)
-        meal_id = self.cur.fetchone() 
-        return meal_id  
+        meal = self.cur.fetchone() 
+        return meal  
 
    
 

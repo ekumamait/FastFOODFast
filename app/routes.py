@@ -113,7 +113,10 @@ def add_single_order():
 	new_order = request.get_json()
 	user_id = get_jwt_identity()['userid']['user_id']
 	
-	meal_id = ticket.search_menu(new_order['meal_name'])['meal_id']
+	meal_id = ticket.search_menu(new_order['meal_name'])
+	# import pdb;pdb.set_trace()
+	if meal_id is None:
+		return 'meal does not exist'
 	ticket.place_new_order(new_order['location'], 
 	new_order['quantity'], user_id, meal_id)
 	return make_response(jsonify({'msg': 'order placed'}), 201)
