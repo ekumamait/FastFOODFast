@@ -9,10 +9,14 @@ from app import app
 from app.models import Users, Orders, Menu
 import re
 import datetime
+from flasgger import Swagger, swag_from
+
 
 ticket = Orders()
 meal = Menu()
 customers = Users()
+
+swagger = Swagger(app)
 
 
 @app.errorhandler(404)
@@ -42,10 +46,9 @@ def bad_request(error):
 
 
 @app.route('/api/v2/auth/sign_up', methods = ['POST'])
+@swag_from('../Docs/signup.yml')
 def sign_up():
 	""" end point for signing up a user """
-	if request.method != "POST":
-		abort(405)
 
 	new_user = request.get_json()
 
@@ -74,6 +77,7 @@ def sign_up():
 		
 
 @app.route('/api/v2/auth/login', methods=['POST'])
+@swag_from('../Docs/login.yml')
 def login():
 	""" end point for logging in a user """
 	user = request.json
@@ -107,15 +111,18 @@ def login():
 @jwt_required
 def add_single_order():
 	""" end point for placing an order """
-	if request.method != "POST":
-		abort(405)
 
 	new_order = request.get_json()
-	user_id = get_jwt_identity()['userid']['user_id']
 	
-	meal_id = ticket.search_menu(new_order['meal_name'])['meal_id']
+	user_id = get_jwt_identity()['userid']['user_id']
+	if new_order is None:
+		return abort(400)
+	meal_id = ticket.search_menu(new_order['meal_name'])
+	
+	if meal_id is None:
+		return 'meal does not exist'
 	ticket.place_new_order(new_order['location'], 
-	new_order['quantity'], user_id, meal_id)
+	new_order['quantity'], user_id, meal_id['meal_id'])
 	return make_response(jsonify({'msg': 'order placed'}), 201)
 
 
@@ -123,8 +130,6 @@ def add_single_order():
 @jwt_required
 def get_my_orders():
 	""" end point for getting order history of a specific user """
-	if request.method != "GET":
-		abort(405)
 		
 	user_id = get_jwt_identity()['userid']['user_id']
 	customers = ticket.get_all_orders(user_id)
@@ -135,8 +140,6 @@ def get_my_orders():
 @jwt_required
 def all_orders():
 	""" end point for fetching all available orders """
-	if request.method != "GET":
-		abort(405)
 
 	current_user = get_jwt_identity()['role']['admin']
 	if current_user is True: 
@@ -149,8 +152,6 @@ def all_orders():
 @jwt_required
 def get_single_order(order_id):
 	""" end point for fetching a single order by order id """
-	if request.method != "GET":
-		abort(405)
 
 	current_user = get_jwt_identity()['role']['admin']
 	if current_user is True:
@@ -163,8 +164,6 @@ def get_single_order(order_id):
 @jwt_required
 def edit_single_order(order_id):
 	""" end point for editting a specific order """
-	if request.method != "PUT":
-		abort(405)
 
 	edit_order = request.get_json()
 	current_user = get_jwt_identity()['role']['admin']
@@ -178,8 +177,6 @@ def edit_single_order(order_id):
 @jwt_required
 def get_menu():
     """ end point for fetching the menu """
-    if request.method != "GET":
-        abort(405)
 
     current_menu = meal.get_all_meals()
     return jsonify({'message': current_menu}), 200
@@ -189,13 +186,16 @@ def get_menu():
 @jwt_required
 def add_to_menu():
 	""" end point for adding a new meal to the menu """
-	if request.method != "POST":
-		abort(405)
 
 	new_meal = request.get_json()
+	
 	current_user = get_jwt_identity()['role']['admin']
 	
 	if current_user is True: 
+		if not new_meal['meal_name']:
+			return jsonify({"msg": "Missing username parameter"}), 400
+		if not new_meal['meal_description']:
+			return jsonify({"msg": "Missing password parameter"}), 400
 		meal.insert_new_meal(new_meal['meal_name'], new_meal['meal_description'], new_meal['meal_price'])
 		return jsonify({'message': "menu item added"}), 201	
 	return make_response(jsonify({'error': 'not authorized'}), 401) 
@@ -204,8 +204,6 @@ def add_to_menu():
 @app.route('/api/v2/users/<int:user_id>', methods=['PUT'])
 def access(user_id):
 	""" end point for editting an order """
-	if request.method != "PUT":
-		abort(405)
 
 	customers.promote_user(user_id)
 	return make_response(jsonify({'msg': 'role updated'}), 201) 	

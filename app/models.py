@@ -11,7 +11,7 @@ class Database:
 
     def __init__(self):
 
-        app_env = os.environ.get('app_env', None)
+        app_env = os.environ.get('app_env')
         
         if app_env == 'True':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
@@ -81,7 +81,7 @@ class Users():
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
-            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
@@ -152,7 +152,7 @@ class Menu():
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
-            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
@@ -188,7 +188,7 @@ class Orders():
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
-            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
@@ -249,8 +249,8 @@ class Orders():
         """Function to search menu and return meal id"""
         create = """SELECT meal_id FROM Menu WHERE meal_name='{}'""".format(meal_name)
         self.cur.execute(create)
-        meal_id = self.cur.fetchone() 
-        return meal_id  
+        meal = self.cur.fetchone() 
+        return meal  
 
    
 
