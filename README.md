@@ -2,7 +2,7 @@
 ##### WELCOME TO FastFOODFast
 ------------
 
-[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast) [![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg)](https://coveralls.io/github/ekumamait/FastFOODFast) [![Maintainability](https://api.codeclimate.com/v1/badges/91ef436eedd5ec2532e6/maintainability)](https://codeclimate.com/github/ekumamait/FastFOODFast/maintainability)
+[![Build Status](https://travis-ci.org/ekumamait/FastFOODFast.svg?branch=ft-challenge-three)](https://travis-ci.org/ekumamait/FastFOODFast) [![Coverage Status](https://coveralls.io/repos/github/ekumamait/FastFOODFast/badge.svg?branch=ft-challenge-three)](https://coveralls.io/github/ekumamait/FastFOODFast?branch=ft-challenge-three) [![Maintainability](https://api.codeclimate.com/v1/badges/91ef436eedd5ec2532e6/maintainability)](https://codeclimate.com/github/ekumamait/FastFOODFast/maintainability)
 
 ------------
 
