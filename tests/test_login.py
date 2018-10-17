@@ -2,23 +2,11 @@ import unittest
 import json
 from app import app
 from app.models import Database
-# from app.models import Users
 from tests.token import Token
 
-# class My_TestClass(unittest.TestCase):
-
-    # def __init__(self, app, vim):
-    #     test_app = app.test_client() 
-
-    # def setUp():
-    #     dbcon = Database()
-    #     self.dbcon.table()
-    # # self.app = app.test_client()
 
 def test_wrong_password():
     """tests for logging in a user with wrong password"""
-    # import pdb;pdb.set_trace()
-    print(app)
     test_app = app.test_client()
     test_app.post('/api/v2/auth/sign_up', 
         data=json.dumps(dict(
@@ -88,9 +76,4 @@ def test_login():
     message = json.loads(response.data)['message']
     assert response.status_code == 200
     assert message == 'succefully' 
-                
-
-    # def tearDown(self):
-    #     db = Database()
-    #     db.drop_tables()
 

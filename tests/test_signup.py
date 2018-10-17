@@ -4,15 +4,7 @@ from app import app
 from app.models import Database
 from app.models import Users
 
-# class My_TestClass(unittest.TestCase):
 
-#     def __init__(self):
-#         self.app = app.test_client() 
-
-#     def setUp(self):
-#         self.dbcon = Database()
-#         self.dbcon.table()
- 
 def test_duplicate_user():
     """tests for signing up a user twice"""
     test_app = app.test_client()
@@ -98,8 +90,4 @@ def test_sign_up():
     assert response.status_code == 201
     assert response.content_type == 'application/json'
 
-
-    # def tearDown(self):
-    #     db = Database()
-    #     db.drop_tables()
 

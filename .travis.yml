@@ -13,7 +13,9 @@ before_script:
    - psql -c 'create database fastfoodfast;' -U postgres
 
 script:
-  - nosetests -v --with-coverage --cover-package=app
+  - pytest --cov-config .coveragerc --cov=app tests/
+  - coverage report
 
 after_success:
 - coveralls
+- pytest
