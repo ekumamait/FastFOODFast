@@ -73,23 +73,9 @@ def test_empty_password_field():
         user_password=" ")), 
     content_type='application/json')
 
-<<<<<<< HEAD
-    def test_sign_up(self):
-        """tests for signing up a user"""
-        response =  self.app.post('/api/v2/auth/sign_up', 
-        data=json.dumps({
-            "user_name": "curry",
-            "user_email": "curry@mail.com",
-            "user_password": "curry23"
-            }), 
-            content_type='application/json')
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.content_type, 'application/json')
-=======
     assert response.status_code == 401
     assert response.content_type == 'application/json'            
         
->>>>>>> 5444fc48c6a029890943b552ea91175c51b16e74
 
 def test_sign_up():
     """tests for signing up a user"""
