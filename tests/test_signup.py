@@ -82,9 +82,9 @@ def test_sign_up():
     test_app = app.test_client()
     response =  test_app.post('/api/v2/auth/sign_up', 
     data=json.dumps({
-        "user_name": "zedd",
-        "user_email": "zed@mail.com",
-        "user_password": "burberry"
+        "user_name": "richard",
+        "user_email": "richard@mail.com",
+        "user_password": "person"
         }), 
         content_type='application/json')
     assert response.status_code == 201
