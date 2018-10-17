@@ -81,7 +81,7 @@ class Users():
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
-            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
@@ -152,7 +152,7 @@ class Menu():
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
-            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
@@ -188,7 +188,7 @@ class Orders():
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         else:    
-            self.conn = psycopg2.connect(dbname='fastfoodfasttest', 
+            self.conn = psycopg2.connect(dbname='fastfoodfast', 
             host='localhost', user='postgres', password='incorrect')
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 

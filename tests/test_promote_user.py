@@ -6,10 +6,12 @@ from app.models import Users, Orders, Menu
 
 class My_TestClass(unittest.TestCase):
 
+    def __init__(self):
+        self.app = app.test_client() 
+
     def setUp(self):
         self.dbcon = Database()
         self.dbcon.table()
-        self.app = app.test_client()
 
     def test_promote_user(self):
         """tests for promote up a user"""
