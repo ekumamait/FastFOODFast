@@ -1,0 +1,104 @@
+body{
+    margin:0;
+    font-family: calibri;
+    background: url("../img/back7.jpg");
+    background-size: cover;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+/*    ----   layout css for menu section  ----   */
+
+.menu_section{
+    width: 85%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.menu_section img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.menu_section .menu_item{
+    display:inline-table;
+}
+.menu_item {
+    background: #ffffff;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 10px;
+    width:  300px;
+    cursor: pointer; 
+}
+.menu_item:hover{
+    box-shadow: 0 5px 30px goldenrod;
+}
+.snack-data {
+    padding-bottom: 5px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e3e3e3;
+}
+.snack-data a:hover {
+    color: #1d1d1d;
+    text-decoration: none;
+}
+.snack-title {
+    color: #444444;
+    margin:20px 0;
+}
+.snack-title a:hover {
+    color: #1d1d1d;
+    text-decoration: none;
+}
+.snack-content {
+    color: gray;
+    font-size: 15px;
+}
+
+/*    ----   layout css for order history  ----   */
+
+#customers {
+    font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    height: 100vh;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers td b {
+    color: red;
+}
+
+#customers td b a{
+    color: red;
+}
+
+#customers td h4 {
+    color: green;
+}
+
+#customers td h4 a{
+    color: green;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    width: 100vh;
+    padding-top: 20px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: goldenrod;
+    color: white;
+}
+
+
+
