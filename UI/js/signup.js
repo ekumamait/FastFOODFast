@@ -1,5 +1,5 @@
-document.getElementById('submitbutton').addEventListener('click', function(oe){
-  newSignup(oe);
+document.getElementById('submitbutton').addEventListener('click', function(click){
+  newSignup(click);
 });
 
 function newSignup(event){
