@@ -104,7 +104,7 @@ def login():
 	user_info = {'userid': userid,'role': role}
 	expires = datetime.timedelta(hours=4)
 	access_token = create_access_token(identity=user_info, expires_delta=expires)
-	return jsonify(access_token=access_token, message='succefully'), 200
+	return jsonify(access_token=access_token, message='succefully', role=role), 200
 
 
 @app.route('/api/v2/users/orders', methods=['POST'])
