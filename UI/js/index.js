@@ -1,8 +1,5 @@
-console.log('clicked');
-
-document.getElementById('signinButton').addEventListener('click', function(oe){
-  login(oe);
-  console.log('clicked');
+document.getElementById('signinButton').addEventListener('click', function(click){
+  login(click);
 });
 
 function login(event){
