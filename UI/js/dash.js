@@ -1,6 +1,3 @@
-// document.getElementById('submitbutton').addEventListener('click', function(click){
-//   dashBoard();
-// });
 
 dashBoard();
 
@@ -25,10 +22,6 @@ function dashBoard(){
       })
       .then((data)=> {
         console.log(data);
-        // if (data.msg == '')
-        // {
-         
-        // }else{
           let images = ["burger.jpg","double.PNG","kungpao.JPG","ricebiryani.JPG","silver.JPG","snack.JPG"];
           let list = data.message;
           var meals = '';
