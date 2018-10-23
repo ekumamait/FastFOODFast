@@ -37,9 +37,9 @@
                     <a class="close" href="#">&times;</a>
                     <div class="content">
                         <div class="form-area-section">
-                            <form method="post" action="history.html">
+                            <form method="post">
                                 <div>
-                                    <select name="order-list" id="#" class="form-control" placeholder="Select Your meal here">
+                                    <select name="order-list" id="meals2" class="form-control" placeholder="Select Your meal here">
                                         <option value="burgers">El Chapo</option>
                                         <option value="burgers">Double El Chapo</option>
                                         <option value="wraps">SilverBack Wrap</option>
@@ -57,13 +57,13 @@
                                     <label for="delivered">delivery</label>
                                 </div>
                                 <div>
-                                    <select name="Select Your location here" id="#" class="form-control" placeholder="Select Your location here">
-                                        <option value="location">Namanve</option>
-                                        <option value="location">Kololo</option>
-                                        <option value="location">Bukoto Strt</option>
-                                        <option value="location">Nakasero</option>
-                                        <option value="location">Kamokya</option>
-                                        <option value="location">Wandegeya</option>
+                                    <select name="Select Your location here" id="location" class="form-control" placeholder="Select Your location here">
+                                        <option value="Namanve">Namanve</option>
+                                        <option value=">Kololo">Kololo</option>
+                                        <option value="Bukoto Strt">Bukoto Strt</option>
+                                        <option value="Nakasero">Nakasero</option>
+                                        <option value="Kamokya">Kamokya</option>
+                                        <option value="Wandegeya">Wandegeya</option>
                                 </div>
                                 <div>
                                     <input type="submit" name="submit"  value="buy" id="submit" class="button-sunshine-outline-order">
@@ -76,7 +76,7 @@
             </div>
 
 <!-- menu items displaying images -->
-
+        <div id="meals">
             <div class="menu_item">
                 <div class="snack-data">
                     <small>STREET BURGERS</small>
@@ -133,5 +133,8 @@
                     shredded chicken and a spread of ketchup and mayo</p>
             </div>
         </div>
+        </div>    
+            
+        <script src="js/dash.js"></script> 
 </body>
 </html>

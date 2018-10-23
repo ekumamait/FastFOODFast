@@ -37,7 +37,7 @@ class Database:
 
         """ This query creates the Menu table """
         create_menu = """ CREATE TABLE IF NOT EXISTS Menu(meal_id SERIAL PRIMARY KEY, 
-        meal_name VARCHAR(100) NOT NULL,meal_description VARCHAR(20) NOT NULL, 
+        meal_name VARCHAR(100) NOT NULL,meal_description VARCHAR(200) NOT NULL, 
         meal_price VARCHAR(50) NOT NULL) """
         self.cur.execute(create_menu)
         self.conn.commit()
@@ -214,7 +214,7 @@ class Orders():
 
     def get_all_orders(self, user_id):
         """Function to get all orders of a specific user"""
-        create = """SELECT * FROM Orders WHERE user_id='{}'""".format(user_id)
+        create = """SELECT * FROM Orders o INNER JOIN Menu m ON o.meal_id = m.meal_id WHERE user_id='{}'""".format(user_id)
         self.cur.execute(create)
         orders = self.cur.fetchall() 
         return orders
