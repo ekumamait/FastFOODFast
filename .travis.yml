@@ -5,6 +5,7 @@ cache: pip
 
 install:
   - pip install -r requirements.txt
+<<<<<<< HEAD
 
 services:
   - postgresql
@@ -17,3 +18,15 @@ script:
 
 after_success:
 - coveralls
+=======
+  - pip install coverage
+  - pip install coveralls
+  - pip install nose
+  
+# command to run tests
+script:
+  - nosetests -v --with-coverage --cover-package=api
+
+after_success:
+- coveralls
+>>>>>>> fd785df93e7e94d95f11562329ab42e870685ac1

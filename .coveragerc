@@ -21,11 +21,19 @@ omit = venv/*
       */numbers.py
       */encodings/*
       */hmac.py
+<<<<<<< HEAD
       */http/cookiejar.py
       */mimetypes.py
       */stringprep.py
       */app/__init__.py
       */typing.py
+=======
+      */http/cookiejar.py      
+      */mimetypes.py                      
+      */stringprep.py
+      */api/__init__.py
+      */api/models.py
+>>>>>>> fd785df93e7e94d95f11562329ab42e870685ac1
 
 
 [html]
