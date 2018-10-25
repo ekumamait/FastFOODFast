@@ -21,6 +21,7 @@
                         <img id="user_icon" src="img/if_user_925901.png" action="history.html">
                     </button>
                     <div class="dropdown-content">
+                        <a href="admin_menu.html">Admin Menu</a>
                         <a href="index.html">Log Out</a>
                     </div>
                 </div>
@@ -30,16 +31,16 @@
         <!-- table displays orders and control actions for admin -->
 <table id="customers">
     <tr>
-      <th>ORDER ID</th>
+      <th id="one">ORDER ID</th>
       <th>PAYMENT METHOD</th>
-      <th>ORDER STATUS</th>
+      <th id="status">ORDER STATUS</th>
       <th>ORDER TYPE</th>
       <th>ORDER LOCATION</th>
     </tr>
     <tr>
       <td>101</td>
       <td>Cash</td>
-      <td><h4><a href="#">ACCEPT</a></h4><b><a href="#">CANCEL</a></b></td>
+      <td><h4><a href="#" id="res">ACCEPT</a></h4><b><a href="#" id="ser">CANCEL</a></b></td>
       <td>DELIVERY</td>
       <td>Namanve</td>
     </tr>
@@ -60,7 +61,7 @@
     <tr>
       <td>104</td>
       <td>Cash</td>
-      <td><h4><a href="#">ACCEPT</a></h4><b><a href="#">CANCEL</a></b></td>
+      <td><h4><a href="#" id="res">ACCEPT</a></h4><b><a href="#" id="ser"CANCEL</a></b></td>
       <td>DELIVERY</td>
       <td>Bombo Rd</td>
     </tr>
