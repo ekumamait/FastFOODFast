@@ -1,3 +1,5 @@
+var baseUrl = 'https://ekumamaits-fastfoodfast.herokuapp.com/api/v2';
+
 getOrderhistory();
 
 function getOrderhistory(){
@@ -6,7 +8,7 @@ function getOrderhistory(){
   let successful = document.getElementById('message');
   let code = '';
   token = window.localStorage.getItem('token');
-  fetch('http://127.0.0.1:5000/api/v2/users/orders', {
+  fetch(baseUrl+ '/users/orders', {
         method:'GET',
         headers: {
           'content-type':'application/json',

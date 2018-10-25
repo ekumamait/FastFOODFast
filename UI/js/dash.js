@@ -1,3 +1,4 @@
+var baseUrl = 'https://ekumamaits-fastfoodfast.herokuapp.com/api/v2';
 
 dashBoard();
 
@@ -7,7 +8,7 @@ function dashBoard(){
       let successful = document.getElementById('message');
       let code = '';
       token = window.localStorage.getItem('token');
-      fetch('http://127.0.0.1:5000/api/v2/menu', {
+      fetch(baseUrl+ '/menu', {
             method:'GET',
             headers: {
               'content-type':'application/json',
@@ -33,7 +34,7 @@ function dashBoard(){
                     <small>${element.meal_price}</small>
                 </div>
                 <h2 class="snack-title">${element.meal_name}</h2>
-                <img src="img/${images[key]}" >
+                <img src="img/${images[Math.floor(Math.random() * 5) + 1]}" >
                 <p class="snack-content">${element.meal_description}</p>
             </div>
             `;
@@ -54,7 +55,7 @@ function placeOrder(meal_name, quantity, location){
       let successful = document.getElementById('message');
       let code = '';
       token = window.localStorage.getItem('token');
-      fetch('http://127.0.0.1:5000/api/v2/users/orders', {
+      fetch(baseUrl+ '/users/orders', {
             method:'POST',
             headers: {
               'content-type':'application/json',

@@ -231,7 +231,7 @@ class Orders():
 
     def get_orders(self):
         """Function to get all orders"""
-        create = """SELECT * FROM Orders;"""
+        create = """SELECT * FROM Orders o INNER JOIN Menu m ON o.meal_id = m.meal_id INNER JOIN Users u ON o.user_id = u.user_id;"""
         self.cur.execute(create)
         orders = self.cur.fetchall() 
         return orders

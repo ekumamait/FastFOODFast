@@ -1,3 +1,5 @@
+var baseUrl = 'https://ekumamaits-fastfoodfast.herokuapp.com/api/v2';
+
 document.getElementById('signinButton').addEventListener('click', function(click){
   login(click);
 });
@@ -10,7 +12,7 @@ function login(event){
       let error = document.getElementById('error');
       let successful = document.getElementById('message');
       let code = '';
-      fetch('http://127.0.0.1:5000/api/v2/auth/login', {
+      fetch(baseUrl+ '/auth/login', {
             method:'POST',
             headers: {
               'content-type':'application/json'

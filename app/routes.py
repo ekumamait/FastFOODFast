@@ -3,7 +3,7 @@
 	contains the application wide endpoints.
 """
 
-from flask import jsonify, request, abort, make_response
+from flask import jsonify, request, abort, make_response, render_template, send_from_directory
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token,get_jwt_identity
 from app import app
 from app.models import Users, Orders, Menu
@@ -45,6 +45,26 @@ def bad_request(error):
 	return make_response(jsonify({'error': 'incomplete Request'}), 400)
 
 
+@app.route('/', methods=['GET'])
+def index():
+	return render_template("index.html")			
+
+
+@app.route('/js/<path:filename>', methods=['GET'])
+def js(filename):
+	return send_from_directory("../UI/js", filename)
+
+
+@app.route('/css/<path:filename>', methods=['GET'])
+def css(filename):
+	return send_from_directory("../UI/css", filename)
+
+
+@app.route('/img/<path:filename>', methods=['GET'])
+def img(filename):
+	return send_from_directory("../UI/img", filename)
+
+
 @app.route('/api/v2/auth/sign_up', methods = ['POST'])
 @swag_from('../Docs/signup.yml')
 def sign_up():
@@ -73,8 +93,8 @@ def sign_up():
 		return jsonify({'msg': 'account created'}), 201
 
 	else:
-		return make_response(jsonify({"msg": "user already exists"}), 401)			
-		
+		return make_response(jsonify({"msg": "user already exists"}), 401)	
+
 
 @app.route('/api/v2/auth/login', methods=['POST'])
 @swag_from('../Docs/login.yml')

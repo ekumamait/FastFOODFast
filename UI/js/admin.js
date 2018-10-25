@@ -1,3 +1,4 @@
+var baseUrl = 'https://ekumamaits-fastfoodfast.herokuapp.com/api/v2';
 getAllOrders();
 
 function getAllOrders(){
@@ -6,7 +7,7 @@ function getAllOrders(){
   let successful = document.getElementById('message');
   let code = '';
   token = window.localStorage.getItem('token');
-  fetch('http://127.0.0.1:5000/api/v2/orders', {
+  fetch(baseUrl+ '/orders', {
         method:'GET',
         headers: {
           'content-type':'application/json',
@@ -24,21 +25,28 @@ function getAllOrders(){
     var orders = data['All Orders']
     var orders2 = ` <tr>
     <th>ORDER</th>
-    <th>ORDER STATUS</th>
+    <th>UPDATE STATUS</th>
     <th>ORDER LOCATION</th>
     <th>ORDER DATE</th>
     <th>QUANTITY</th>
+    <th>CURRENT STATUS</th>
     <th>CUSTOMER</th>
     </tr>`;
     orders.forEach((element,key) => {
     orders2 += `
     <tr>
-    <td>${element.meal_id}</td>
-    <td><b>${element.status}</b><h4><a href="#">ACCEPT</a></h4><b><a href="#">CANCEL</a></b></td>
+    <td>${element.meal_name}</td>
+    <td><h4>
+    <div class="pointer" onClick="updateOrder('${element.order_id}','processing')">ACCEPT</div>
+    <b>
+    <div class="pointer" onClick="updateOrder('${element.order_id}','completed')">COMPLETED</div>
+    </h4><b><div class="pointer" onClick="updateOrder('${element.order_id}','cancelled')">CANCEL</div>
+    </b></td>
     <td>${element.location}</td>
     <td>${element.order_date}</td>
     <td>${element.quantity}</td>
-    <td>${element.user_id}</td>
+    <td>${element.status}</td>
+    <td>${element.user_name}</td>
     </tr>
     `;  
 
@@ -48,15 +56,14 @@ function getAllOrders(){
   });
 }
 
-updateOrder();
 
 function updateOrder(id, status){
-
+      console.log(id+status);
       let error = document.getElementById('error');
       let successful = document.getElementById('message');
       let code = '';
       token = window.localStorage.getItem('token');
-      fetch('http://127.0.0.1:5000/api/v2/orders/1', {
+      fetch(baseUrl+'/orders/'+parseInt(id), {
             method:'PUT',
             headers: {
               'content-type':'application/json',
@@ -68,80 +75,25 @@ function updateOrder(id, status){
             })  
       }
       ).then((res)=>{
-        console.log(res);
         code = res.code;
         return res.json();
       })
       .then(data=>{
         console.log(data);
-        if (data.msg=='order updated'){
-          // window.location = 'history.html'
+        if (data.msg=='Order updated'){
+          getAllOrders();
         }
       })
 }
 
-document.getElementById('customers').addEventListener('click', function(e){
-  e.preventDefault();
-  var location = document.getElementById('status').value;
-  updateOrder(status);
-
-});
-
-
-getSpecificOrder();
-
-function getSpecificOrder(id){
-
-  let error = document.getElementById('error');
-  let successful = document.getElementById('message');
-  let code = '';
-  token = window.localStorage.getItem('token');
-  fetch('http://127.0.0.1:5000/api/v2/orders/1', {
-        method:'GET',
-        headers: {
-          'content-type':'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        mode: 'cors',
-          
-  }
-  ).then((res)=>{
-    code = res.code;
-    return res.json();
-  })
-  .then(data=>{
-    console.log(data);
-    var orders = data['All Orders']
-    var orders2 = ` <tr>
-    <th>ORDER</th>
-    <th>ORDER STATUS</th>
-    <th>ORDER LOCATION</th>
-    <th>ORDER DATE</th>
-    <th>QUANTITY</th>
-    <th>CUSTOMER</th>
-  </tr>`;
-    orders.forEach((element,key) => {
-    orders2 += `
-    <tr>
-    <td>${element.meal_id}</td>
-    <td><b>${element.status}</b><h4><a href="#">ACCEPT</a></h4><b><a href="#">CANCEL</a></b></td>
-    <td>${element.location}</td>
-    <td>${element.order_date}</td>
-    <td>${element.quantity}</td>
-    <td>${element.user_id}</td>
-    </tr>
-    `;  
-
-    });
-    document.getElementById("one").innerHTML=orders2;
-
+try {
+  document.getElementById('submitmeal').addEventListener('click', function(click){
+    newMeal(click);
+    
   });
-}
-
-document.getElementById('submitmeal').addEventListener('click', function(click){
-  newMeal(click);
+} catch (error) {
   
-});
+}
 
 function newMeal(event){
       event.preventDefault();
@@ -153,7 +105,7 @@ function newMeal(event){
       let successful = document.getElementById('message');
       let code = '';
       token = window.localStorage.getItem('token');
-      fetch('http://127.0.0.1:5000/api/v2/menu', {
+      fetch(baseUrl+'/menu', {
             method:'POST',
             headers: {
               'content-type':'application/json',
@@ -172,7 +124,7 @@ function newMeal(event){
       })
       .then((data)=> {
         console.log(data);
-        if (data.msg == 'menu item added')
+        if (data.message == 'menu item added')
         {
           window.location = 'dash.html';
           error.style.display= 'none';
