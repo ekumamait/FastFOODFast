@@ -1,17 +1,13 @@
 astroid==2.0.4
-<<<<<<< HEAD
 atomicwrites==1.2.1
 attrs==18.2.0
 backcall==0.1.0
-=======
->>>>>>> fd785df93e7e94d95f11562329ab42e870685ac1
 certifi==2018.8.24
 chardet==3.0.4
 click==6.7
 colorama==0.3.9
 coverage==4.5.1
 coveralls==1.5.0
-<<<<<<< HEAD
 decorator==4.3.0
 docopt==0.6.2
 flasgger==0.9.1
@@ -52,22 +48,5 @@ six==1.11.0
 traitlets==4.3.2
 urllib3==1.23
 wcwidth==0.1.7
-=======
-docopt==0.6.2
-Flask==1.0.2
-gunicorn==19.9.0
-idna==2.7
-isort==4.3.4
-itsdangerous==0.24
-Jinja2==2.10
-lazy-object-proxy==1.3.1
-MarkupSafe==1.0
-mccabe==0.6.1
-nose==1.3.7
-pylint==2.1.1
-requests==2.19.1
-six==1.11.0
-urllib3==1.23
->>>>>>> fd785df93e7e94d95f11562329ab42e870685ac1
 Werkzeug==0.14.1
 wrapt==1.10.11
