@@ -13,7 +13,7 @@ class Database:
 
         app_env = os.environ.get('app_env')
         
-        if app_env == 'FALSE':
+        if app_env == 'TRUE':
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
             host='ec2-54-243-147-162.compute-1.amazonaws.com', user='tzmenitfctaxao', 
             password='96ef85e0def489a55c93209d9f37981eb9fb6adcdf3faee72e04be9c22071bad')
