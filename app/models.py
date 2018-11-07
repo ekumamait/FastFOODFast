@@ -27,7 +27,7 @@ class Database:
     def table(self):
 
 
-        """ This query creates the Users table """
+        """ This query creates Users table """
         create_user_table = """ CREATE TABLE IF NOT EXISTS Users(user_id SERIAL PRIMARY KEY, 
         user_name VARCHAR(100) NOT NULL, user_email VARCHAR(120) NOT NULL, 
         user_password VARCHAR(20) NOT NULL, admin BOOLEAN NOT NULL) """
