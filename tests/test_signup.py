@@ -82,8 +82,8 @@ def test_sign_up():
     test_app = app.test_client()
     response =  test_app.post('/api/v2/auth/sign_up', 
     data=json.dumps({
-        "user_name": "richard",
-        "user_email": "richard@mail.com",
+        "user_name": "avenger",
+        "user_email": "avenger@mail.com",
         "user_password": "person"
         }), 
         content_type='application/json')
