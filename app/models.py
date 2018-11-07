@@ -74,7 +74,7 @@ class Users():
         app_env = os.environ.get('app_env', None)
         
         if app_env == 'True':
-            Database().get_connection()
+            #Database().get_connection()
             self.conn = psycopg2.connect(dbname='d6gj3s9p51b0ge', 
             host='ec2-54-243-147-162.compute-1.amazonaws.com', 
             user='tzmenitfctaxao', 
